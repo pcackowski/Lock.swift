@@ -328,7 +328,7 @@ class ClassicRouterSpec: QuickSpec {
                 expect(controller.routes.history).to(beEmpty())
             }
 
-            fit("should filter when overriding connections") {
+            it("should filter when overriding connections") {
                 lock = Lock(authentication: MockAuthentication(clientId: "CLIENT_ID", domain: "samples.auth0.com")).allowedConnections(["facebook"])
                 controller = MockLockController(lock: lock)
                 controller.headerView = header

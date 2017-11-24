@@ -89,10 +89,6 @@ class OptionsSpec: QuickSpec {
                 expect(options.customSignupFields).to(beEmpty())
             }
 
-            it("should not be OIDC conformant") {
-                expect(options.oidcConformant) == false
-            }
-
             it("should have no audience") {
                 expect(options.audience).to(beNil())
             }
@@ -158,24 +154,6 @@ class OptionsSpec: QuickSpec {
             it("should fail when username style is empty") {
                 options.usernameStyle = []
                 expect(options.validate()).toNot(beNil())
-            }
-
-            it("should fail setting audience in non OIDC mode") {
-                options.oidcConformant = false
-                options.audience = "https://myapi.com"
-                expect(options.validate()).toNot(beNil())
-            }
-
-            it("should allow no audience in OIDC mode") {
-                options.oidcConformant = true
-                options.audience = nil
-                expect(options.validate()).to(beNil())
-            }
-
-            it("should allow audience in OIDC mode") {
-                options.oidcConformant = true
-                options.audience = "https://myapi.com"
-                expect(options.validate()).to(beNil())
             }
 
             context("passwordless") {
@@ -245,11 +223,6 @@ class OptionsSpec: QuickSpec {
             it("should set closable") {
                 options.closable = true
                 expect(options.closable) == true
-            }
-
-            it("should set OIDC Conformant") {
-                options.oidcConformant = true
-                expect(options.oidcConformant) == true
             }
 
             it("should set audience") {

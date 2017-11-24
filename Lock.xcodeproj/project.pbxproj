@@ -148,7 +148,6 @@
 		5FBE5CBA1D3E59B90038536D /* MultifactorCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBE5CB91D3E59B90038536D /* MultifactorCodeView.swift */; };
 		5FBE5CBE1D3E5C7B0038536D /* MultifactorAuthenticatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBE5CBD1D3E5C7B0038536D /* MultifactorAuthenticatable.swift */; };
 		5FBE5CC01D3E5E0A0038536D /* MultifactorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBE5CBF1D3E5E0A0038536D /* MultifactorInteractor.swift */; };
-		5FBE5CC21D3E5EF50038536D /* MultifactorInteractorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBE5CC11D3E5EF50038536D /* MultifactorInteractorSpec.swift */; };
 		5FBE5CC41D3E67320038536D /* Validators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBE5CC31D3E67320038536D /* Validators.swift */; };
 		5FBE5CC61D3E7F9D0038536D /* MultifactorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBE5CC51D3E7F9D0038536D /* MultifactorPresenter.swift */; };
 		5FBE5CC81D3EA0EA0038536D /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBE5CC71D3EA0EA0038536D /* Mocks.swift */; };
@@ -1289,7 +1288,6 @@
 				5F73CDDC1D309BE900D8D8D1 /* DatabasePasswordInteractorSpec.swift in Sources */,
 				5B38F84F1E93F2A300C25EAC /* OnePasswordSpec.swift in Sources */,
 				5FA250501D48E2A200C544FA /* OptionsSpec.swift in Sources */,
-				5FBE5CC21D3E5EF50038536D /* MultifactorInteractorSpec.swift in Sources */,
 				5B3874D51E97C14000244326 /* PolicyViewSpec.swift in Sources */,
 				5B1FD9721E546F500055C1AC /* PasswordlessInteractorSpec.swift in Sources */,
 				5B64AC4F1F668CD0000A8842 /* InputFieldSpec.swift in Sources */,

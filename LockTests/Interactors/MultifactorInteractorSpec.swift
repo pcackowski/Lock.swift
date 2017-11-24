@@ -100,7 +100,6 @@ class MultifactorInteractorSpec: QuickSpec {
         describe("login") {
 
             beforeEach {
-                options.oidcConformant = false
                 var dispatcher = ObserverStore()
                 dispatcher.onAuth = { credentials = $0 }
                 interactor = MultifactorInteractor(user: user, authentication: Auth0.authentication(clientId: clientId, domain: domain), connection: connection, options: options, dispatcher: dispatcher)

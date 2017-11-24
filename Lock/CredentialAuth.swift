@@ -28,6 +28,11 @@ struct CredentialAuth {
     let oidc: Bool
     let authentication: Authentication
 
+    init(authentication: Authentication, oidc: Bool = true) {
+        self.authentication = authentication
+        self.oidc = oidc
+    }
+
     func request(withIdentifier identifier: String, password: String, realm: String, options: Options) -> Request<Credentials, AuthenticationError> {
         if oidc {
             return self.authentication.login(

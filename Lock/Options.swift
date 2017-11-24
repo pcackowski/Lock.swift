@@ -46,7 +46,6 @@ public protocol Options {
     var activeDirectoryEmailAsUsername: Bool { get }
     var enterpriseConnectionUsingActiveAuth: [String] { get }
 
-    var oidcConformant: Bool { get }
     var audience: String? { get }
 
     var passwordlessMethod: PasswordlessMethod { get }

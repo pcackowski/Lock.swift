@@ -48,7 +48,7 @@ struct DatabaseInteractor: DatabaseAuthenticatable, DatabaseUserCreator, Loggabl
     var connectionResolver: (String) -> String?
 
     init(connection: DatabaseConnection, authentication: Authentication, user: DatabaseUser, options: Options, dispatcher: Dispatcher) {
-        self.credentialAuth = CredentialAuth(oidc: options.oidcConformant, authentication: authentication)
+        self.credentialAuth = CredentialAuth(authentication: authentication)
         self.connection = connection
         self.dispatcher = dispatcher
         self.user = user

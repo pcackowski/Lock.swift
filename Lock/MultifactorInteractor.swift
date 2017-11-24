@@ -70,8 +70,7 @@ struct MultifactorInteractor: MultifactorAuthenticatable, Loggable {
         let database = self.connection.name
 
         // FIXME: MFA support for password-realm
-        guard !self.options.oidcConformant else { return callback(.couldNotLogin) }
-        authentication.login(
+        self.authentication.login(
                 usernameOrEmail: identifier,
                 password: password,
                 multifactorCode: code,

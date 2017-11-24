@@ -85,9 +85,6 @@ public protocol OptionBuildable: Options {
         /// Should an enterprise connection use credentials instead of WebAuth.  By default enterprise connections use WebAuth
     var enterpriseConnectionUsingActiveAuth: [String] { get set }
 
-        /// Specifies if Lock should use OIDC conformant authentication endpoints. By default is false
-    var oidcConformant: Bool { get set }
-
         /// Specify the intended resource server of the token. By default no audience is specified.
     var audience: String? { get set }
 
@@ -114,7 +111,6 @@ extension OptionBuildable {
         guard !self.allow.isEmpty else { return UnrecoverableError.invalidOptions(cause: "Must allow at least one database mode") }
         guard !self.usernameStyle.isEmpty else { return UnrecoverableError.invalidOptions(cause: "Must specify at least one username style") }
         guard self.allow.contains(.Login) || self.closable || self.autoClose else { return UnrecoverableError.invalidOptions(cause: "Must enable autoclose or enable closable") }
-        guard self.oidcConformant || self.audience == nil else { return UnrecoverableError.invalidOptions(cause: "Must set OIDC-Conformant flag in Lock to use audience option") }
         return nil
     }
 

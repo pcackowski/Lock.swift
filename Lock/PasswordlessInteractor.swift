@@ -96,7 +96,7 @@ struct PasswordlessInteractor: PasswordlessAuthenticatable, Loggable {
             identifier = countryCode.phoneCode + identifier
         }
 
-        CredentialAuth(oidc: options.oidcConformant, authentication: authentication)
+        CredentialAuth(authentication: authentication, oidc: false)
             .request(withIdentifier: identifier, password: password, realm: connection, options: self.options)
             .start { result in
                 self.handle(identifier: identifier, result: result, callback: callback)

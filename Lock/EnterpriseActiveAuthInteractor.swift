@@ -48,7 +48,7 @@ struct EnterpriseActiveAuthInteractor: DatabaseAuthenticatable, Loggable {
     let identifierAttribute: UserAttribute
 
     init(connection: EnterpriseConnection, authentication: Authentication, user: User, options: Options, dispatcher: Dispatcher) {
-        self.authentication = CredentialAuth(oidc: options.oidcConformant, authentication: authentication)
+        self.authentication = CredentialAuth(authentication: authentication)
         self.connection = connection
         self.dispatcher = dispatcher
         self.user = user
