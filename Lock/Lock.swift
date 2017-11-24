@@ -60,7 +60,7 @@ public class Lock: NSObject {
     }
 
     override convenience init() {
-        self.init(authentication: Auth0.authentication(), webAuth: Auth0.webAuth())
+        self.init(authentication: Auth0.authentication())
     }
 
     /**
@@ -71,7 +71,8 @@ public class Lock: NSObject {
 
      - returns: a newly created Lock instance
      */
-    required public init(authentication: Authentication, webAuth: WebAuth, classic: Bool = true) {
+    required public init(authentication: Authentication, classic: Bool = true) {
+        let webAuth = authentication.webAuth()
         let (authenticationWithTelemetry, webAuthWithTelemetry) = telemetryFor(authentication: authentication, webAuth: webAuth)
         self.authentication = authenticationWithTelemetry
         self.webAuth = webAuthWithTelemetry
@@ -104,7 +105,7 @@ public class Lock: NSObject {
      - requires: Legacy Grant `http://auth0.com/oauth/legacy/grant-type/ro`. Check [our documentation](https://auth0.com/docs/clients/client-grant-types) for more info and how to enable it.
      */
     public static func passwordless() -> Lock {
-        return self.init(authentication: Auth0.authentication(), webAuth: Auth0.webAuth(), classic: false)
+        return self.init(authentication: Auth0.authentication(), classic: false)
     }
 
     /**
@@ -117,7 +118,7 @@ public class Lock: NSObject {
      - requires: Legacy Grant `http://auth0.com/oauth/legacy/grant-type/ro`. Check [our documentation](https://auth0.com/docs/clients/client-grant-types) for more info and how to enable it.
      */
     public static func passwordless(clientId: String, domain: String) -> Lock {
-        return Lock(authentication: Auth0.authentication(clientId: clientId, domain: domain), webAuth: Auth0.webAuth(clientId: clientId, domain: domain), classic: false)
+        return Lock(authentication: Auth0.authentication(clientId: clientId, domain: domain), classic: false)
     }
 
     /**
@@ -129,7 +130,7 @@ public class Lock: NSObject {
      - returns: a newly created Lock classic instance
      */
     public static func classic(clientId: String, domain: String) -> Lock {
-        return Lock(authentication: Auth0.authentication(clientId: clientId, domain: domain), webAuth: Auth0.webAuth(clientId: clientId, domain: domain))
+        return Lock(authentication: Auth0.authentication(clientId: clientId, domain: domain))
     }
 
     /**
@@ -300,20 +301,6 @@ public class Lock: NSObject {
      */
     public static func resumeAuth(_ url: URL, options: [UIApplicationOpenURLOptionsKey: Any]) -> Bool {
         return Auth0.resumeAuth(url, options: options)
-    }
-
-    /**
-     Register an AuthProvider to be used for connection, e.g. When using native social integration plugins such as
-     Lock-Facebook to provide native authentication.
-
-     - parameter name: connection name that will use the specified auth provider
-     - parameter handler: the auth provider to use
-     
-     - returns: Lock itself for chaining
-     */
-    public func nativeAuthentication(forConnection name: String, handler: AuthProvider) -> Lock {
-        self.nativeHandlers[name] = handler
-        return self
     }
 
     /**

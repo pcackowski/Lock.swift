@@ -36,7 +36,7 @@ class ClassicRouterSpec: QuickSpec {
         var header: HeaderView!
 
         beforeEach {
-            lock = Lock(authentication: Auth0.authentication(clientId: "CLIENT_ID", domain: "samples.auth0.com"), webAuth: MockWebAuth())
+            lock = Lock(authentication: MockAuthentication(clientId: "CLIENT_ID", domain: "samples.auth0.com"))
             _ = lock.withConnections { $0.database(name: "connection", requiresUsername: false) }
             controller = MockLockController(lock: lock)
             header = HeaderView()
@@ -47,7 +47,7 @@ class ClassicRouterSpec: QuickSpec {
         describe("root") {
 
             beforeEach {
-                lock = Lock(authentication: Auth0.authentication(clientId: "CLIENT_ID", domain: "samples.auth0.com"), webAuth: MockWebAuth())
+                lock = Lock(authentication: MockAuthentication(clientId: "CLIENT_ID", domain: "samples.auth0.com"))
                 controller = MockLockController(lock: lock)
                 router = ClassicRouter(lock: lock, controller: controller)
             }
@@ -137,13 +137,6 @@ class ClassicRouterSpec: QuickSpec {
                     .withConnections { $0.database(name: connection, requiresUsername: false) }
                     .withOptions { $0.allow = [.ResetPassword] }
                 expect(router.root as? DatabaseForgotPasswordPresenter).toNot(beNil())
-            }
-
-            it("should return root for single native social") {
-                _ = lock.withConnections {
-                    $0.social(name: "facebook", style: .Facebook)
-                }.nativeAuthentication(forConnection: "facebook", handler: MockNativeAuthHandler())
-                expect(router.root as? AuthPresenter).toNot(beNil())
             }
 
             describe("passwordless") {
@@ -286,7 +279,7 @@ class ClassicRouterSpec: QuickSpec {
 
             context("no connection") {
                 beforeEach {
-                    lock = Lock(authentication: Auth0.authentication(clientId: "CLIENT_ID", domain: "samples.auth0.com"), webAuth: MockWebAuth())
+                    lock = Lock(authentication: MockAuthentication(clientId: "CLIENT_ID", domain: "samples.auth0.com"))
                     controller = MockLockController(lock: lock)
                     controller.headerView = header
                     router = ClassicRouter(lock: lock, controller: controller)
@@ -335,8 +328,8 @@ class ClassicRouterSpec: QuickSpec {
                 expect(controller.routes.history).to(beEmpty())
             }
 
-            it("should select when overriding connections") {
-                lock = Lock(authentication: Auth0.authentication(clientId: "CLIENT_ID", domain: "samples.auth0.com"), webAuth: MockWebAuth()).allowedConnections(["facebook"])
+            fit("should filter when overriding connections") {
+                lock = Lock(authentication: MockAuthentication(clientId: "CLIENT_ID", domain: "samples.auth0.com")).allowedConnections(["facebook"])
                 controller = MockLockController(lock: lock)
                 controller.headerView = header
                 router = ClassicRouter(lock: lock, controller: controller)

@@ -235,9 +235,9 @@ class MockAuthentication: Authentication {
 
     var telemetry: Telemetry
 
-    var webAuth: MockWebAuth?
+    var webAuthentication: MockWebAuth?
     
-    var webAuthResult: () -> Auth0.Result<Credentials> = {  return Auth0.Result.failure(error: AuthenticationError(string: "FAILED", statusCode: 500)) }
+    var webAuthenticationResult: () -> Auth0.Result<Credentials> = {  return Auth0.Result.failure(error: AuthenticationError(string: "FAILED", statusCode: 500)) }
 
     required init(clientId: String, domain: String) {
         self.authentication = Auth0.authentication(clientId: clientId, domain: domain)
@@ -247,10 +247,15 @@ class MockAuthentication: Authentication {
     }
 
     func webAuth(withConnection connection: String) -> WebAuth {
-        let mockWebAuth = MockWebAuth().connection(connection)
-        self.webAuth = mockWebAuth.connection(connection)
-        self.webAuth?.result = self.webAuthResult
-        return self.webAuth!
+        self.webAuthentication = MockWebAuth().connection(connection)
+        self.webAuthentication?.result = self.webAuthenticationResult
+        return self.webAuthentication!
+    }
+
+    func webAuth() -> WebAuth {
+        self.webAuthentication = MockWebAuth()
+        self.webAuthentication?.result = self.webAuthenticationResult
+        return self.webAuthentication!
     }
 
     func tokenInfo(token: String) -> Request<Profile, AuthenticationError> {

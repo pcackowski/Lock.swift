@@ -70,19 +70,19 @@ class Auth0OAuth2InteractorSpec: QuickSpec {
 
             it("should set connection") {
                 interactor.login("facebook", loginHint: nil, callback: { _ in })
-                expect(authentication.webAuth?.connection) == "facebook"
+                expect(authentication.webAuthentication?.connection) == "facebook"
             }
 
             it("should set scope") {
                 interactor.login("facebook", loginHint: nil, callback: { _ in })
-                expect(authentication.webAuth?.scope) == "openid"
+                expect(authentication.webAuthentication?.scope) == "openid"
             }
 
             it("should set connection scope for specified connection") {
                 options.connectionScope = ["facebook": "user_friends,email"]
                 interactor = Auth0OAuth2Interactor(authentication: authentication, dispatcher: dispatcher, options: options, nativeHandlers: nativeHandlers)
                 interactor.login("facebook", loginHint: nil, callback: { _ in })
-                expect(authentication.webAuth?.parameters["connection_scope"]) == "user_friends,email"
+                expect(authentication.webAuthentication?.parameters["connection_scope"]) == "user_friends,email"
             }
 
             it("should set connection scope for matching connections only") {
@@ -90,23 +90,23 @@ class Auth0OAuth2InteractorSpec: QuickSpec {
                                            "google-oauth2": "gmail,ads"]
                 interactor = Auth0OAuth2Interactor(authentication: authentication, dispatcher: dispatcher, options: options, nativeHandlers: nativeHandlers)
                 interactor.login("facebook", loginHint: nil, callback: { _ in })
-                expect(authentication.webAuth?.parameters["connection_scope"]) == "user_friends,email"
+                expect(authentication.webAuthentication?.parameters["connection_scope"]) == "user_friends,email"
                 interactor.login("google-oauth2", loginHint: nil, callback: { _ in })
-                expect(authentication.webAuth?.parameters["connection_scope"]) == "gmail,ads"
+                expect(authentication.webAuthentication?.parameters["connection_scope"]) == "gmail,ads"
             }
 
             it("should not set audience if nil") {
                 options.audience = nil
                 interactor = Auth0OAuth2Interactor(authentication: authentication, dispatcher: dispatcher, options: options, nativeHandlers: nativeHandlers)
                 interactor.login("facebook", loginHint: nil, callback: { _ in })
-                expect(authentication.webAuth?.audience).to(beNil())
+                expect(authentication.webAuthentication?.audience).to(beNil())
             }
 
             it("should set audience") {
                 options.audience = "https://myapi.com/v1"
                 interactor = Auth0OAuth2Interactor(authentication: authentication, dispatcher: dispatcher, options: options, nativeHandlers: nativeHandlers)
                 interactor.login("facebook", loginHint: nil, callback: { _ in })
-                expect(authentication.webAuth?.audience) == "https://myapi.com/v1"
+                expect(authentication.webAuthentication?.audience) == "https://myapi.com/v1"
             }
 
             it("should set parameters") {
@@ -114,30 +114,30 @@ class Auth0OAuth2InteractorSpec: QuickSpec {
                 options.parameters = ["state": state as Any]
                 interactor = Auth0OAuth2Interactor(authentication: authentication, dispatcher: dispatcher, options: options, nativeHandlers: nativeHandlers)
                 interactor.login("facebook", loginHint: nil, callback: { _ in })
-                expect(authentication.webAuth?.parameters["state"]) == state
+                expect(authentication.webAuthentication?.parameters["state"]) == state
             }
 
             it("should not yield error on success") {
-                authentication.webAuthResult = { return .success(result: mockCredentials()) }
+                authentication.webAuthenticationResult = { return .success(result: mockCredentials()) }
                 interactor.login("facebook", loginHint: nil) { error = $0 }
                 expect(error).toEventually(beNil())
             }
 
             it("should call credentials callback") {
                 let expected = mockCredentials()
-                authentication.webAuthResult = { return .success(result: expected) }
+                authentication.webAuthenticationResult = { return .success(result: expected) }
                 interactor.login("facebook", loginHint: nil) { error = $0 }
                 expect(credentials).toEventually(equal(expected))
             }
 
             it("should handle cancel error") {
-                authentication.webAuthResult = { return .failure(error: WebAuthError.userCancelled) }
+                authentication.webAuthenticationResult = { return .failure(error: WebAuthError.userCancelled) }
                 interactor.login("facebook", loginHint: nil) { error = $0 }
                 expect(error).toEventually(equal(OAuth2AuthenticatableError.cancelled))
             }
 
             it("should handle generic error") {
-                authentication.webAuthResult = { return .failure(error: WebAuthError.noBundleIdentifierFound) }
+                authentication.webAuthenticationResult = { return .failure(error: WebAuthError.noBundleIdentifierFound) }
                 interactor.login("facebook", loginHint: nil) { error = $0 }
                 expect(error).toEventually(equal(OAuth2AuthenticatableError.couldNotAuthenticate))
             }
@@ -182,7 +182,7 @@ class Auth0OAuth2InteractorSpec: QuickSpec {
 
                 beforeEach {
                     MockNativeAuthHandler.validProvider = false
-                    authentication.webAuth = nil
+                    authentication.webAuthentication = nil
                     nativeHandlers.removeAll()
                     nativeHandlers["twitter"] = authHandler
                     interactor = Auth0OAuth2Interactor(authentication: authentication, dispatcher: dispatcher, options: options, nativeHandlers: nativeHandlers)
@@ -190,7 +190,7 @@ class Auth0OAuth2InteractorSpec: QuickSpec {
                 
                 it("should fallback to webAuth with connection") {
                     interactor.login("twitter", loginHint: nil, callback: { _ in })
-                    expect(authentication.webAuth?.connection) == "twitter"
+                    expect(authentication.webAuthentication?.connection) == "twitter"
                 }
                 
             }

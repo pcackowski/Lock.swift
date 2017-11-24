@@ -31,7 +31,6 @@ class LockSpec: QuickSpec {
 
         var lock: Lock!
         var authentication: Authentication!
-        var webAuth: WebAuth!
 
         describe("init") {
 
@@ -47,9 +46,8 @@ class LockSpec: QuickSpec {
         }
 
         beforeEach {
-            authentication = Auth0.authentication(clientId: clientId, domain: domain)
-            webAuth = MockWebAuth()
-            lock = Lock(authentication: authentication, webAuth: webAuth)
+            authentication = MockAuthentication(clientId: clientId, domain: domain)
+            lock = Lock(authentication: authentication)
         }
 
         describe("options") {
@@ -164,26 +162,6 @@ class LockSpec: QuickSpec {
                 let _ = lock.onPasswordless(callback: callback)
                 lock.observerStore.onPasswordless("mail@mail.com")
                 expect(email) == "mail@mail.com"
-            }
-
-        }
-
-
-        describe("native handler") {
-
-            it("should regsiter native handler") {
-                let nativeHandler = MockNativeAuthHandler()
-                let name = "facebook"
-                _ = lock.nativeAuthentication(forConnection: name, handler: nativeHandler)
-                expect(lock.nativeHandlers[name]).toNot(beNil())
-            }
-
-            it("should regsiter native handler to multiple connections") {
-                let nativeHandler = MockNativeAuthHandler()
-                _ = lock.nativeAuthentication(forConnection: "facebook", handler: nativeHandler)
-                _ = lock.nativeAuthentication(forConnection: "facebookcorp", handler: nativeHandler)
-                expect(lock.nativeHandlers["facebook"]).toNot(beNil())
-                expect(lock.nativeHandlers["facebookcorp"]).toNot(beNil())
             }
 
         }

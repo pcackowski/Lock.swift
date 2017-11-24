@@ -36,7 +36,7 @@ class PasswordlessRouterSpec: QuickSpec {
         var header: HeaderView!
 
         beforeEach {
-            lock = Lock(authentication: Auth0.authentication(clientId: "CLIENT_ID", domain: "samples.auth0.com"), webAuth: MockWebAuth(), classic: false)
+            lock = Lock(authentication: MockAuthentication(clientId: "CLIENT_ID", domain: "samples.auth0.com"), classic: false)
             _ = lock.withConnections { $0.email(name: "custom-email") }
             controller = MockLockController(lock: lock)
             header = HeaderView()
@@ -217,7 +217,7 @@ class PasswordlessRouterSpec: QuickSpec {
             }
 
             it("should select when overriding connections") {
-                lock = Lock(authentication: Auth0.authentication(clientId: "CLIENT_ID", domain: "samples.auth0.com"), webAuth: MockWebAuth(), classic: false).allowedConnections(["custom-email"])
+                lock = Lock(authentication: MockAuthentication(clientId: "CLIENT_ID", domain: "samples.auth0.com"), classic: false).allowedConnections(["custom-email"])
                 controller = MockLockController(lock: lock)
                 controller.headerView = header
                 router = PasswordlessRouter(lock: lock, controller: controller)

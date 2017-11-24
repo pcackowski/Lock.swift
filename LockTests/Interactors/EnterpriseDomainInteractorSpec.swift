@@ -176,23 +176,23 @@ class EnterpriseDomainInteractorSpec: QuickSpec {
             }
 
             it("should not yield error on success") {
-                authentication.webAuthResult = { return .success(result: mockCredentials()) }
+                authentication.webAuthenticationResult = { return .success(result: mockCredentials()) }
                 try! enterprise.updateEmail("user@test.com")
                 enterprise.login() { error = $0 }
                 expect(error).toEventually(beNil())
             }
 
             it("should add login_hint to parameters") {
-                authentication.webAuthResult = { return .success(result: mockCredentials()) }
+                authentication.webAuthenticationResult = { return .success(result: mockCredentials()) }
                 try! enterprise.updateEmail("user@test.com")
                 enterprise.login() { error = $0 }
                 expect(error).toEventually(beNil())
-                expect(authentication.webAuth?.parameters["login_hint"]) == "user@test.com"
+                expect(authentication.webAuthentication?.parameters["login_hint"]) == "user@test.com"
             }
 
             it("should call credentials callback") {
                 let expected = mockCredentials()
-                authentication.webAuthResult  = { return .success(result: expected) }
+                authentication.webAuthenticationResult  = { return .success(result: expected) }
 
                 try! enterprise.updateEmail("user@test.com")
                 enterprise.login() { error = $0 }
