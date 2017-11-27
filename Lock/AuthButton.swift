@@ -37,14 +37,14 @@ public class AuthButton: UIView {
         }
     }
 
-    public var normalColor: UIColor = UIColor.a0_orange {
+    public var normalColor: UIColor = UIColor.Auth0.orange {
         didSet {
             let normal = image(withColor: self.normalColor)
             self.button?.setBackgroundImage(normal, for: UIControlState())
         }
     }
 
-    public var highlightedColor: UIColor = UIColor.a0_orange.a0_darker(0.3) {
+    public var highlightedColor: UIColor = UIColor.Auth0.orange.a0_darker(0.3) {
         didSet {
             let highlighted = image(withColor: self.highlightedColor)
             self.button?.setBackgroundImage(highlighted, for: .highlighted)

@@ -31,7 +31,7 @@ public struct Style {
     public var title = "Auth0".i18n(key: "com.auth0.lock.header.default_title", comment: "Header Title")
 
         /// Primary color of Lock used in the principal components like the Primary Button
-    public var primaryColor = UIColor.a0_orange
+    public var primaryColor = UIColor.Auth0.orange
 
         /// Lock background color
     public var backgroundColor = UIColor.white
@@ -86,10 +86,10 @@ public struct Style {
     public var seperatorTextColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.54)
 
         /// Input field text color
-    public var inputTextColor = UIColor.black
+    public var inputTextColor = UIColor.Auth0.night
 
         /// Input field placeholder text color
-    public var inputPlaceholderTextColor = UIColor(red: 0.780, green: 0.780, blue: 0.804, alpha: 1.00)
+    public var inputPlaceholderTextColor = UIColor.Auth0.steel
 
         /// Input field border color default
     public var inputBorderColor = UIColor(red: 0.9333, green: 0.9333, blue: 0.9333, alpha: 1.0)
@@ -101,10 +101,10 @@ public struct Style {
     public var inputBackgroundColor = UIColor.white
 
         /// Input field icon background color
-    public var inputIconBackgroundColor = UIColor(red: 0.9333, green: 0.9333, blue: 0.9333, alpha: 1.0)
+    public var inputIconBackgroundColor = UIColor.white
 
         /// Input field icon color
-    public var inputIconColor = UIColor(red: 0.5725, green: 0.5804, blue: 0.5843, alpha: 1.0)
+    public var inputIconColor = UIColor.Auth0.steel
 
         /// Secondary button color
     public var secondaryButtonColor = UIColor.black
@@ -159,6 +159,13 @@ public struct Style {
     }
 
     static let Auth0 = Style()
+}
+
+struct Guide {
+
+    static let inputFontSize: CGFloat = 14.0
+    static let inputFieldSpacing: CGFloat = 8.0
+    static let gutter: CGFloat = 64.0
 }
 
 protocol Stylable {

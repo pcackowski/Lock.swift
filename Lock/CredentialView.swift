@@ -78,14 +78,14 @@ class CredentialView: UIView, Form {
         self.addSubview(identifier)
         self.addSubview(password)
 
-        constraintEqual(anchor: identifier.leftAnchor, toAnchor: self.leftAnchor, constant: 20)
+        constraintEqual(anchor: identifier.leftAnchor, toAnchor: self.leftAnchor, constant: 0)
         constraintEqual(anchor: identifier.topAnchor, toAnchor: self.topAnchor)
-        constraintEqual(anchor: identifier.rightAnchor, toAnchor: self.rightAnchor, constant: -20)
+        constraintEqual(anchor: identifier.rightAnchor, toAnchor: self.rightAnchor, constant: 0)
         identifier.translatesAutoresizingMaskIntoConstraints = false
 
-        constraintEqual(anchor: password.leftAnchor, toAnchor: self.leftAnchor, constant: 20)
-        constraintEqual(anchor: password.topAnchor, toAnchor: identifier.bottomAnchor, constant: 16)
-        constraintEqual(anchor: password.rightAnchor, toAnchor: self.rightAnchor, constant: -20)
+        constraintEqual(anchor: password.leftAnchor, toAnchor: self.leftAnchor, constant: 0)
+        constraintEqual(anchor: password.topAnchor, toAnchor: identifier.bottomAnchor, constant: Guide.inputFieldSpacing)
+        constraintEqual(anchor: password.rightAnchor, toAnchor: self.rightAnchor, constant: 0)
         constraintEqual(anchor: password.bottomAnchor, toAnchor: self.bottomAnchor)
         password.translatesAutoresizingMaskIntoConstraints = false
 

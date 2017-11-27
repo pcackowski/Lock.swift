@@ -162,11 +162,11 @@ class InputField: UIView, Stylable {
         constraintEqual(anchor: iconContainer.heightAnchor, toAnchor: iconContainer.widthAnchor)
         iconContainer.translatesAutoresizingMaskIntoConstraints = false
 
-        self.textFieldLeftAnchor = constraintEqual(anchor: textField.leftAnchor, toAnchor: iconContainer.rightAnchor, constant: 16)
+        self.textFieldLeftAnchor = constraintEqual(anchor: textField.leftAnchor, toAnchor: iconContainer.rightAnchor, constant: 0)
         constraintEqual(anchor: textField.topAnchor, toAnchor: container.topAnchor)
-        self.textFieldRightPadding = constraintEqual(anchor: textField.rightAnchor, toAnchor: container.rightAnchor, constant: -16)
+        self.textFieldRightPadding = constraintEqual(anchor: textField.rightAnchor, toAnchor: container.rightAnchor, constant: 0)
         constraintEqual(anchor: textField.bottomAnchor, toAnchor: container.bottomAnchor)
-        dimension(dimension: textField.heightAnchor, withValue: 50)
+        dimension(dimension: textField.heightAnchor, withValue: 48)
         textField.translatesAutoresizingMaskIntoConstraints = false
 
         constraintEqual(anchor: iconView.centerXAnchor, toAnchor: iconContainer.centerXAnchor)
@@ -177,7 +177,7 @@ class InputField: UIView, Stylable {
         iconView.tintColor = Style.Auth0.inputIconColor
         textField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
         textField.delegate = self
-        textField.font = UIFont.systemFont(ofSize: 17)
+        textField.font = UIFont.systemFont(ofSize: Guide.inputFontSize)
         errorLabel.text = nil
         errorLabel.numberOfLines = 0
 
@@ -188,16 +188,17 @@ class InputField: UIView, Stylable {
         self.errorLabel = errorLabel
 
         self.containerView?.backgroundColor = .white
-        self.containerView?.layer.cornerRadius = 3.67
+        self.containerView?.layer.cornerRadius = 3.0
         self.containerView?.layer.masksToBounds = true
         self.containerView?.layer.borderWidth = 1
+        self.containerView?.layer.shadowOpacity = 0.57
         self.type = .email
         self.errorLabel?.text = State.valid.text
         self.containerView?.layer.borderColor = Style.Auth0.inputBorderColor.cgColor
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: 230, height: 50)
+        return CGSize(width: 247, height: 48)
     }
 
     // MARK: - Password Manager
@@ -239,7 +240,7 @@ class InputField: UIView, Stylable {
         var padding: CGFloat {
             switch self {
             case .invalid where self.text != nil:
-                return -10
+                return -8
             default:
                 return 0
             }
@@ -343,13 +344,15 @@ class InputField: UIView, Stylable {
         self.borderColor = style.inputBorderColor
         self.borderColorError = style.inputBorderColorError
         self.textField?.textColor = style.inputTextColor
-        self.textField?.attributedPlaceholder = NSAttributedString(string: self.textField?.placeholder ?? "",
-                                                               attributes: [NSAttributedStringKey.foregroundColor: style.inputPlaceholderTextColor])
+        self.textField?.attributedPlaceholder = NSAttributedString(string: self.textField?.placeholder ?? "", attributes: [
+            NSAttributedStringKey.foregroundColor: style.inputPlaceholderTextColor,
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: Guide.inputFontSize, weight: UIFont.Weight.medium)
+            ])
         self.containerView?.backgroundColor = style.inputBackgroundColor
         self.containerView?.layer.borderColor = style.inputBorderColor.cgColor
-        self.errorLabel?.textColor = style.inputBorderColorError
         self.iconContainer?.backgroundColor = style.inputIconBackgroundColor
         self.iconView?.tintColor = style.inputIconColor
+        self.errorLabel?.textColor = style.inputBorderColorError
     }
 }
 
@@ -357,6 +360,8 @@ class InputField: UIView, Stylable {
 extension InputField: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.containerView?.layer.borderColor = UIColor.Auth0.active.cgColor
+        self.iconView?.tintColor = UIColor.Auth0.active
         self.onBeginEditing(self)
     }
 

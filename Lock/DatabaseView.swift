@@ -34,7 +34,6 @@ protocol DatabaseView: class, View {
     var allFields: [InputField]? { get }
 
     var traitCollection: UITraitCollection { get }
-
     var allowedModes: DatabaseMode { get }
 
     func showLogin(withIdentifierStyle style: DatabaseIdentifierStyle, identifier: String?, authCollectionView: AuthCollectionView?, showPassswordManager: Bool, showPassword: Bool)
