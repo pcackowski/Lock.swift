@@ -53,7 +53,7 @@ class AuthStyleSpecSharedExamplesConfiguration: QuickConfiguration {
                 }
 
                 it("should have a color") {
-                    expect(style.normalColor) != UIColor.a0_orange
+                    expect(style.normalColor) != UIColor.Auth0.orange
                 }
 
                 it("should have icon") {
@@ -81,11 +81,11 @@ class AuthStyleSpec: QuickSpec {
             }
 
             it("should have default color") {
-                expect(strategy.normalColor) == UIColor.a0_orange
+                expect(strategy.normalColor) == UIColor.Auth0.orange
             }
 
             it("should have default highligted color") {
-                expect(strategy.highlightedColor) == UIColor.a0_orange.a0_darker(0.3)
+                expect(strategy.highlightedColor) == UIColor.Auth0.orange.a0_darker(0.3)
             }
 
             it("should have default foreground color") {
@@ -162,7 +162,7 @@ class AuthStyleSpec: QuickSpec {
             it("should default to auth0 style") {
                 let style = AuthStyle.style(forStrategy: "random", connectionName: "connection")
                 expect(style.name) == "connection"
-                expect(style.normalColor) == UIColor.a0_orange
+                expect(style.normalColor) == UIColor.Auth0.orange
             }
 
             [
@@ -219,11 +219,11 @@ class AuthStyleSpec: QuickSpec {
             let style: Style = Style.Auth0
 
             it("should have orange for normal") {
-                expect(style.primaryButtonColor(forState: .normal)) == UIColor.a0_orange
+                expect(style.primaryButtonColor(forState: .normal)) == UIColor.Auth0.orange
             }
 
             it("should be darker for highlighted") {
-                let baseColor = UIColor.a0_orange
+                let baseColor = UIColor.Auth0.orange
                 expect(style.primaryButtonColor(forState: .highlighted)) == baseColor.a0_darker(0.20)
             }
 

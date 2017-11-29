@@ -48,9 +48,6 @@ public class AuthButton: UIView {
         didSet {
             let highlighted = image(withColor: self.highlightedColor)
             self.button?.setBackgroundImage(highlighted, for: .highlighted)
-            if case .big = size {
-                self.iconView?.backgroundColor = self.highlightedColor
-            }
         }
     }
 
@@ -137,15 +134,12 @@ public class AuthButton: UIView {
         if case .small = size {
             constraintEqual(anchor: button.widthAnchor, toAnchor: button.heightAnchor)
         }
-        dimension(dimension: button.heightAnchor, greaterThanOrEqual: 50)
+        dimension(dimension: button.heightAnchor, greaterThanOrEqual: Guide.inputHeight)
         button.translatesAutoresizingMaskIntoConstraints = false
 
         button.layer.cornerRadius = 3
         button.layer.masksToBounds = true
 
-        if case .big = size {
-            iconView.backgroundColor = self.highlightedColor
-        }
         iconView.image = self.icon ?? image(named: "ic_auth_auth0", compatibleWithTraitCollection: self.traitCollection)
         iconView.contentMode = .center
         iconView.tintColor = self.titleColor
@@ -153,11 +147,11 @@ public class AuthButton: UIView {
         button.setBackgroundImage(image(withColor: self.color), for: UIControlState())
         button.setBackgroundImage(image(withColor: self.color.a0_darker(0.3)), for: .highlighted)
         button.setTitleColor(self.titleColor, for: UIControlState())
-        button.titleLabel?.font = .systemFont(ofSize: 13.33, weight: UIFont.Weight.medium)
+        button.titleLabel?.font = mediumSystemFont(size: Guide.inputFontSize)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.titleLabel?.minimumScaleFactor = 0.5
         button.contentVerticalAlignment = .center
-        button.contentHorizontalAlignment = .left
+        button.contentHorizontalAlignment = .center
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
 
         if case .big = self.size {
@@ -170,15 +164,15 @@ public class AuthButton: UIView {
 
     public override func updateConstraints() {
         super.updateConstraints()
-        self.button?.titleEdgeInsets = UIEdgeInsets(top: 0, left: max(self.frame.size.height, 50) + 18, bottom: 0, right: 18)
+        self.button?.titleEdgeInsets = UIEdgeInsets(top: 0, left: max(self.frame.size.height, Guide.inputHeight) + 16, bottom: 0, right: 16)
     }
 
     public override var intrinsicContentSize: CGSize {
         switch self.size {
         case .big:
-            return CGSize(width: 280, height: 50)
+            return CGSize(width: UIViewNoIntrinsicMetric, height: Guide.inputHeight)
         case .small:
-            return CGSize(width: 50, height: 50)
+            return CGSize(width: Guide.inputHeight, height: Guide.inputHeight)
         }
     }
 

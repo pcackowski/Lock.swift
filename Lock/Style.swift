@@ -28,7 +28,7 @@ import Foundation
 public struct Style {
 
         /// Title used in Header
-    public var title = "Auth0".i18n(key: "com.auth0.lock.header.default_title", comment: "Header Title")
+    public var title = "Log In to Auth0 to get started using My App".i18n(key: "com.auth0.lock.header.default_title", comment: "Header Title")
 
         /// Primary color of Lock used in the principal components like the Primary Button
     public var primaryColor = UIColor.Auth0.orange
@@ -48,7 +48,7 @@ public struct Style {
         /// Primary button tint color
     public var buttonTintColor = UIColor.white
 
-        /// Header background color. By default it has no color but a blur
+        /// Header background color. By default it has no color
     public var headerColor: UIColor?
 
         /// Blur effect style used. It can be any value defined in `UIBlurEffectStyle`
@@ -61,7 +61,7 @@ public struct Style {
     public var headerBackIcon: LazyImage = lazyImage(named: "ic_back")
 
         /// Header title color
-    public var titleColor = UIColor.black
+    public var titleColor = UIColor.Auth0.dark
 
         /// Hide header title (show only logo). By default is false
     public var hideTitle = false {
@@ -107,7 +107,7 @@ public struct Style {
     public var inputIconColor = UIColor.Auth0.steel
 
         /// Secondary button color
-    public var secondaryButtonColor = UIColor.black
+    public var secondaryButtonColor = UIColor.Auth0.link
 
         /// Database login Tab Text Color
     public var tabTextColor = UIColor(red: 0.3608, green: 0.4, blue: 0.4353, alpha: 0.6)
@@ -164,8 +164,11 @@ public struct Style {
 struct Guide {
 
     static let inputFontSize: CGFloat = 14.0
+    static let headerFontSize: CGFloat = 18.0
     static let inputFieldSpacing: CGFloat = 8.0
     static let gutter: CGFloat = 64.0
+    static let gutterFooter: CGFloat = 40.0
+    static let inputHeight: CGFloat = 48
 }
 
 protocol Stylable {

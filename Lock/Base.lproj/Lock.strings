@@ -1,5 +1,5 @@
 // Forgot password
-"com.auth0.lock.database.button.forgot_password" = "Don’t remember your password?";
+"com.auth0.lock.database.button.forgot_password" = "Forgot Password?";
 // tos & privacy
 "com.auth0.lock.database.button.tos" = "By signing up, you agree to our terms of\n service and privacy policy";
 // forgot password email sent
@@ -10,8 +10,8 @@
 "com.auth0.lock.database.mode.switcher.login" = "Log In";
 // Signup Switch
 "com.auth0.lock.database.mode.switcher.signup" = "Sign Up";
-// Social separator
-"com.auth0.lock.database.separator" = "or";
+// Form separator
+"com.auth0.lock.database.separator" = "OR";
 // User signed up
 "com.auth0.lock.database.signup.success.message" = "Thanks for signing up.";
 // Cancel
@@ -109,7 +109,7 @@
 // Forgot Password title
 "com.auth0.lock.forgot.title" = "Reset Password";
 // Header Title
-"com.auth0.lock.header.default_title" = "Auth0";
+"com.auth0.lock.header.default_title" = "Log In to Auth0 to get started using My App";
 // invalid email
 "com.auth0.lock.input.email.error" = "Must be a valid email address";
 // Email placeholder
@@ -229,7 +229,7 @@
 // Send Email button title
 "com.auth0.lock.submit.send_email.title" = "SEND EMAIL";
 // Signup Button title
-"com.auth0.lock.submit.signup.title" = "SIGN UP";
+"com.auth0.lock.submit.signup.title" = "Sign Up";
 // Passwordless code reminder action
 "com.auth0.passwordless.code.reminder" = "Did not get the code?";
 // Passwordless code sent by email to %@{identifier}

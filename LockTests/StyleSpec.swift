@@ -34,7 +34,7 @@ class StyleSpec: QuickSpec {
             let style = Style.Auth0
 
             it("should have primary color") {
-                expect(style.primaryColor) == UIColor.a0_orange
+                expect(style.primaryColor) == UIColor.Auth0.orange
             }
 
             it("should have background color") {
@@ -62,11 +62,11 @@ class StyleSpec: QuickSpec {
             }
 
             it("should have input field text color") {
-                expect(style.inputTextColor) == UIColor.black
+                expect(style.inputTextColor) == UIColor.Auth0.night
             }
 
             it("should have input field placeholder text color") {
-                expect(style.inputPlaceholderTextColor) == UIColor(red: 0.780, green: 0.780, blue: 0.804, alpha: 1.00)
+                expect(style.inputPlaceholderTextColor) == UIColor.Auth0.steel
             }
 
             it("should have input field border color default") {
@@ -82,15 +82,15 @@ class StyleSpec: QuickSpec {
             }
 
             it("should have input field icon background color") {
-                expect(style.inputIconBackgroundColor) == UIColor(red: 0.9333, green: 0.9333, blue: 0.9333, alpha: 1.0)
+                expect(style.inputIconBackgroundColor) == UIColor.white
             }
 
             it("should have input field icon color") {
-                expect(style.inputIconColor) == UIColor(red: 0.5725, green: 0.5804, blue: 0.5843, alpha: 1.0 )
+                expect(style.inputIconColor) == UIColor.Auth0.steel
             }
 
             it("should have secondary button color") {
-                expect(style.secondaryButtonColor) == UIColor.black
+                expect(style.secondaryButtonColor) == UIColor.Auth0.link
             }
 
             it("should have database login tab text color") {

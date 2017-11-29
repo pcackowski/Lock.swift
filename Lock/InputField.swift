@@ -198,7 +198,7 @@ class InputField: UIView, Stylable {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: 247, height: 48)
+        return CGSize(width: UIViewNoIntrinsicMetric, height: 48)
     }
 
     // MARK: - Password Manager
@@ -360,7 +360,6 @@ class InputField: UIView, Stylable {
 extension InputField: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.containerView?.layer.borderColor = UIColor.Auth0.active.cgColor
         self.iconView?.tintColor = UIColor.Auth0.active
         self.onBeginEditing(self)
     }

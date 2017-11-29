@@ -58,7 +58,7 @@ class ClassicRouterSpec: QuickSpec {
 
             it("should return root for single database connection") {
                 _ = lock.withConnections { $0.database(name: connection, requiresUsername: true) }
-                let root = router.root as? DatabasePresenter
+                let root = router.root as? DatabaseLoginPresenter
                 expect(root).toNot(beNil())
                 expect(root?.authPresenter).to(beNil())
             }
@@ -68,7 +68,7 @@ class ClassicRouterSpec: QuickSpec {
                     $0.database(name: connection, requiresUsername: true)
                     $0.social(name: "facebook", style: .Facebook)
                 }
-                let root = router.root as? DatabasePresenter
+                let root = router.root as? DatabaseLoginPresenter
                 expect(root).toNot(beNil())
                 expect(root?.authPresenter).toNot(beNil())
             }
@@ -79,7 +79,7 @@ class ClassicRouterSpec: QuickSpec {
                     $0.social(name: "facebook", style: .Facebook)
                     $0.enterprise(name: "testAD", domains: ["testAD.com"])
                 }
-                let root = router.root as? DatabasePresenter
+                let root = router.root as? DatabaseLoginPresenter
                 expect(root).toNot(beNil())
                 expect(root?.authPresenter).toNot(beNil())
                 expect(root?.enterpriseInteractor).toNot(beNil())

@@ -66,13 +66,11 @@ class SecondaryButton: UIView {
         self.addSubview(button)
 
         constraintEqual(anchor: button.centerXAnchor, toAnchor: self.centerXAnchor)
-        constraintGreaterOrEqual(anchor: button.leftAnchor, toAnchor: self.leftAnchor)
-        constraintGreaterOrEqual(anchor: button.rightAnchor, toAnchor: self.rightAnchor)
         constraintEqual(anchor: button.centerYAnchor, toAnchor: self.centerYAnchor)
         button.translatesAutoresizingMaskIntoConstraints = false
 
         button.tintColor = Style.Auth0.secondaryButtonColor
-        button.titleLabel?.font = regularSystemFont(size: 15)
+        button.titleLabel?.font = mediumSystemFont(size: Guide.inputFontSize)
         button.titleLabel?.lineBreakMode = .byWordWrapping
         button.titleLabel?.textAlignment = .center
         button.addTarget(self, action: #selector(pressed), for: .touchUpInside)
@@ -81,7 +79,7 @@ class SecondaryButton: UIView {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 76)
+        return CGSize(width: UIViewNoIntrinsicMetric, height: Guide.inputFontSize * 2.0)
     }
 
     @objc func pressed(_ sender: Any) {

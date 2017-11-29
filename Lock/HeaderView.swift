@@ -28,8 +28,6 @@ public class HeaderView: UIView {
     weak var titleView: UILabel?
     weak var closeButton: UIButton?
     weak var backButton: UIButton?
-    weak var maskImageView: UIImageView?
-    weak var blurView: UIVisualEffectView?
 
     public var onClosePressed: () -> Void = {}
 
@@ -79,36 +77,6 @@ public class HeaderView: UIView {
         }
     }
 
-    public var maskImage: UIImage? {
-        get {
-            return self.maskImageView?.image
-        }
-        set {
-            self.maskImageView?.image = newValue
-            self.setNeedsUpdateConstraints()
-        }
-    }
-
-    public var blurred: Bool = Style.Auth0.headerColor == nil {
-        didSet {
-            self.applyBackground()
-            self.setNeedsDisplay()
-        }
-    }
-
-    public var blurStyle: UIBlurEffectStyle = .light {
-        didSet {
-            self.applyBackground()
-            self.setNeedsDisplay()
-        }
-    }
-
-    public var maskColor: UIColor = UIColor ( red: 0.8745, green: 0.8745, blue: 0.8745, alpha: 1.0 ) {
-        didSet {
-            self.mask?.tintColor = self.maskColor
-        }
-    }
-
     public convenience init() {
         self.init(frame: CGRect.zero)
     }
@@ -136,35 +104,37 @@ public class HeaderView: UIView {
         self.addSubview(closeButton)
         self.addSubview(backButton)
 
-        constraintEqual(anchor: centerGuide.centerYAnchor, toAnchor: self.centerYAnchor, constant: 10)
+        logoView.contentMode = .scaleAspectFit
+        titleView.numberOfLines = 2
+        titleView.textAlignment = .center
+
         constraintEqual(anchor: centerGuide.centerXAnchor, toAnchor: self.centerXAnchor)
 
-        constraintEqual(anchor: titleView.bottomAnchor, toAnchor: centerGuide.bottomAnchor)
-        constraintEqual(anchor: titleView.centerXAnchor, toAnchor: centerGuide.centerXAnchor)
-        titleView.setContentCompressionResistancePriority(UILayoutPriority.required, for: .horizontal)
-        titleView.setContentHuggingPriority(UILayoutPriority.required, for: .horizontal)
-        titleView.translatesAutoresizingMaskIntoConstraints = false
-
         constraintEqual(anchor: logoView.centerXAnchor, toAnchor: self.centerXAnchor)
-        constraintEqual(anchor: logoView.bottomAnchor, toAnchor: titleView.topAnchor, constant: -15)
-        constraintEqual(anchor: logoView.topAnchor, toAnchor: centerGuide.topAnchor)
+        constraintEqual(anchor: logoView.topAnchor, toAnchor: self.topAnchor, constant: Guide.gutter)
+        dimension(dimension: logoView.heightAnchor, withValue: 80)
+        dimension(dimension: logoView.widthAnchor, withValue: 80)
         logoView.translatesAutoresizingMaskIntoConstraints = false
 
-        constraintEqual(anchor: closeButton.centerYAnchor, toAnchor: self.topAnchor, constant: 45)
-        constraintEqual(anchor: closeButton.rightAnchor, toAnchor: self.rightAnchor, constant: -10)
-        closeButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        closeButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        constraintEqual(anchor: titleView.topAnchor, toAnchor: logoView.bottomAnchor, constant: 32)
+        constraintEqual(anchor: titleView.leftAnchor, toAnchor: self.leftAnchor, constant: Guide.gutter)
+        constraintEqual(anchor: titleView.rightAnchor, toAnchor: self.rightAnchor, constant: -Guide.gutter)
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+
+        constraintEqual(anchor: closeButton.centerYAnchor, toAnchor: self.topAnchor, constant: 48)
+        constraintEqual(anchor: closeButton.rightAnchor, toAnchor: self.rightAnchor, constant: -16)
+        closeButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        closeButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         closeButton.translatesAutoresizingMaskIntoConstraints = false
 
-        constraintEqual(anchor: backButton.centerYAnchor, toAnchor: self.topAnchor, constant: 45)
-        constraintEqual(anchor: backButton.leftAnchor, toAnchor: self.leftAnchor, constant: 10)
-        backButton.widthAnchor.constraint(equalToConstant: 25).isActive = true
-        backButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        constraintEqual(anchor: backButton.centerYAnchor, toAnchor: self.topAnchor, constant: 48)
+        constraintEqual(anchor: backButton.leftAnchor, toAnchor: self.leftAnchor, constant: 16)
+        backButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        backButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
         backButton.translatesAutoresizingMaskIntoConstraints = false
 
-        self.applyBackground()
         self.apply(style: Style.Auth0)
-        titleView.font = regularSystemFont(size: 20)
+        titleView.font = mediumSystemFont(size: Guide.headerFontSize)
         logoView.image = image(named: "ic_auth0", compatibleWithTraitCollection: self.traitCollection)
         closeButton.setBackgroundImage(image(named: "ic_close", compatibleWithTraitCollection: self.traitCollection)?.withRenderingMode(.alwaysOriginal), for: UIControlState())
         closeButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
@@ -177,11 +147,10 @@ public class HeaderView: UIView {
         self.backButton = backButton
 
         self.showBack = false
-        self.clipsToBounds = true
     }
 
     public override var intrinsicContentSize: CGSize {
-        return CGSize(width: 200, height: 154)
+        return CGSize(width: UIViewNoIntrinsicMetric, height: 248)
     }
 
     @objc func buttonPressed(_ sender: UIButton) {
@@ -194,61 +163,14 @@ public class HeaderView: UIView {
         }
     }
 
-    // MARK: - Blur
-
-    private var canBlur: Bool {
-        return self.blurred && !UIAccessibilityIsReduceTransparencyEnabled()
-    }
-
-    private func applyBackground() {
-        self.maskImageView?.removeFromSuperview()
-        self.blurView?.removeFromSuperview()
-
-        self.backgroundColor = self.canBlur ? .white : UIColor ( red: 0.9451, green: 0.9451, blue: 0.9451, alpha: 1.0 )
-
-        guard self.canBlur else { return }
-
-        let maskView = UIImageView()
-        let blur = UIBlurEffect(style: self.blurStyle)
-        let blurView = UIVisualEffectView(effect: blur)
-
-        self.insertSubview(maskView, at: 0)
-        self.insertSubview(blurView, at: 1)
-
-        constraintEqual(anchor: blurView.leftAnchor, toAnchor: self.leftAnchor)
-        constraintEqual(anchor: blurView.topAnchor, toAnchor: self.topAnchor)
-        constraintEqual(anchor: blurView.rightAnchor, toAnchor: self.rightAnchor)
-        constraintEqual(anchor: blurView.bottomAnchor, toAnchor: self.bottomAnchor)
-        blurView.translatesAutoresizingMaskIntoConstraints = false
-
-        maskView.translatesAutoresizingMaskIntoConstraints = false
-        dimension(dimension: maskView.widthAnchor, withValue: 400)
-        dimension(dimension: maskView.heightAnchor, withValue: 400)
-        constraintEqual(anchor: maskView.centerYAnchor, toAnchor: self.centerYAnchor)
-        constraintEqual(anchor: maskView.centerXAnchor, toAnchor: self.centerXAnchor)
-
-        maskView.contentMode = .scaleToFill
-        maskView.image = image(named: "ic_auth0", compatibleWithTraitCollection: self.traitCollection)?.withRenderingMode(.alwaysTemplate)
-        maskView.tintColor = self.maskColor
-
-        self.maskImageView = maskView
-        self.blurView = blurView
-    }
 }
 
 extension HeaderView: Stylable {
     func apply(style: Style) {
-        if let color = style.headerColor {
-            self.blurred = false
-            self.backgroundColor = color
-        } else {
-            self.blurred = true
-            self.blurStyle = style.headerBlur
-        }
+        self.backgroundColor = style.headerColor
         self.title = style.hideTitle ? nil : style.title
         self.titleColor = style.titleColor
         self.logo = style.logo.image(compatibleWithTraits: self.traitCollection)
-        self.maskImage = style.headerMask
         self.backButton?.setBackgroundImage(style.headerBackIcon.image(compatibleWithTraits: self.traitCollection)?.withRenderingMode(.alwaysOriginal), for: .normal)
         self.closeButton?.setBackgroundImage(style.headerCloseIcon.image(compatibleWithTraits: self.traitCollection)?.withRenderingMode(.alwaysOriginal), for: .normal)
     }

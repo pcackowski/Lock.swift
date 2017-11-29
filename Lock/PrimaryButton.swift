@@ -27,8 +27,6 @@ class PrimaryButton: UIView, Stylable {
     weak var button: UIButton?
     weak var indicator: UIActivityIndicatorView?
 
-    private weak var textColor: UIColor?
-
     var hideTitle: Bool = false {
         didSet {
             guard let button = self.button else { return }
@@ -94,43 +92,22 @@ class PrimaryButton: UIView, Stylable {
         button.addTarget(self, action: #selector(pressed), for: .touchUpInside)
 
         indicator.hidesWhenStopped = true
+        button.titleLabel?.font = mediumSystemFont(size: Guide.inputFontSize)
+        button.layer.cornerRadius = 3
+        button.layer.masksToBounds = true
 
         apply(style: Style.Auth0)
+
         self.button = button
         self.indicator = indicator
     }
 
     private func layout(title: String?, inButton button: UIButton) {
-        button.setImage(nil, for: .normal)
-        button.setImage(nil, for: .disabled)
-        button.setAttributedTitle(nil, for: .normal)
-        button.setAttributedTitle(nil, for: .disabled)
-        guard let title = title, !self.hideTitle else {
-            button.setImage(image(named: "ic_submit", compatibleWithTraitCollection: self.traitCollection), for: UIControlState())
-            button.setImage(UIImage(), for: .disabled)
-            return
-        }
-
-        let font = mediumSystemFont(size: 16)
-        let attachment = NSTextAttachment()
-        attachment.image = image(named: "ic_chevron_right", compatibleWithTraitCollection: self.traitCollection)
-        attachment.bounds = CGRect(x: 0.0, y: font.descender / 2.0, width: attachment.image!.size.width, height: attachment.image!.size.height)
-
-        let attributedText = NSMutableAttributedString()
-        attributedText.append(NSAttributedString(
-            string: "\(title)  ",
-            attributes: [
-                NSAttributedStringKey.foregroundColor: self.textColor ?? Style.Auth0.buttonTintColor,
-                NSAttributedStringKey.font: font
-            ]
-        ))
-        attributedText.append(NSAttributedString(attachment: attachment))
-        button.setAttributedTitle(attributedText, for: .normal)
-        button.setAttributedTitle(NSAttributedString(), for: .disabled)
+        button.setTitle(title, for: .normal)
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 95)
+        return CGSize(width: UIViewNoIntrinsicMetric, height: Guide.inputHeight)
     }
 
     @objc func pressed(_ sender: Any) {
@@ -138,12 +115,8 @@ class PrimaryButton: UIView, Stylable {
     }
 
     func apply(style: Style) {
-        self.button?.setBackgroundImage(image(withColor: style.primaryColor), for: UIControlState())
-        self.button?.setBackgroundImage(image(withColor: style.primaryColor.a0_darker(0.20)), for: .highlighted)
-        self.button?.setBackgroundImage(image(withColor: style.disabledColor), for: .disabled)
-        self.textColor = style.buttonTintColor
+        self.button?.backgroundColor = style.primaryColor
         self.button?.tintColor = style.buttonTintColor
         self.indicator?.color = style.disabledTextColor
-        self.hideTitle = style.hideButtonTitle
     }
 }
