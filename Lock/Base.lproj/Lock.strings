@@ -1,15 +1,13 @@
 // Forgot password
-"com.auth0.lock.database.button.forgot_password" = "Forgot Password?";
+"com.auth0.lock.database.button.forgot_password" = "Don’t remember your password?";
 // tos & privacy
 "com.auth0.lock.database.button.tos" = "By signing up, you agree to our terms of\n service and privacy policy";
 // forgot password email sent
 "com.auth0.lock.database.forgot.success.message" = "We've just sent you an email to reset your password";
 // User logged in
 "com.auth0.lock.database.login.success.message" = "You have logged in successfully.";
-// Login Switch
-"com.auth0.lock.database.mode.switcher.login" = "Log In";
-// Signup Switch
-"com.auth0.lock.database.mode.switcher.signup" = "Sign Up";
+// Signup message
+"com.auth0.lock.database.message.signup" = "Don't have an account?";
 // Form separator
 "com.auth0.lock.database.separator" = "OR";
 // User signed up
@@ -229,7 +227,7 @@
 // Send Email button title
 "com.auth0.lock.submit.send_email.title" = "SEND EMAIL";
 // Signup Button title
-"com.auth0.lock.submit.signup.title" = "Sign Up";
+"com.auth0.lock.submit.signup.title" = "SIGN UP";
 // Passwordless code reminder action
 "com.auth0.passwordless.code.reminder" = "Did not get the code?";
 // Passwordless code sent by email to %@{identifier}
