@@ -141,15 +141,16 @@ class DatabaseLoginView: UIView, View {
         message.textColor = UIColor.Auth0.night
         message.font = mediumSystemFont(size: Guide.inputFontSize)
 
-        let spacer = ((signupButton.button?.intrinsicContentSize.width)! * 0.5) + Guide.inputFieldSpacing
+        // TODO: Tidy up
+        let spacer = ((signupButton.button?.intrinsicContentSize.width)! * 0.5)
         constraintEqual(anchor: signupButton.bottomAnchor, toAnchor: self.bottomAnchor, constant: -Guide.gutterFooter)
-        constraintEqual(anchor: signupButton.leftAnchor, toAnchor: message.rightAnchor, constant: spacer)
+        constraintEqual(anchor: signupButton.leftAnchor, toAnchor: message.rightAnchor, constant: Guide.inputFieldSpacing)
+        dimension(dimension: signupButton.widthAnchor, withValue: (signupButton.button?.intrinsicContentSize.width)!)
         signupButton.translatesAutoresizingMaskIntoConstraints = false
 
         constraintEqual(anchor: message.centerXAnchor, toAnchor: self.centerXAnchor, constant: -spacer)
         constraintEqual(anchor: message.centerYAnchor, toAnchor: signupButton.centerYAnchor)
         message.translatesAutoresizingMaskIntoConstraints = false
-        message.sizeToFit()
     }
 
     func apply(style: Style) {
@@ -159,7 +160,7 @@ class DatabaseLoginView: UIView, View {
 
     override var intrinsicContentSize: CGSize {
         self.container?.layoutIfNeeded()
-        return CGSize(width: UIViewNoIntrinsicMetric, height: (self.container?.intrinsicContentSize.height)!)
+        return CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric)
     }
 
 }

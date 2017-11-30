@@ -227,7 +227,7 @@
 // Send Email button title
 "com.auth0.lock.submit.send_email.title" = "SEND EMAIL";
 // Signup Button title
-"com.auth0.lock.submit.signup.title" = "SIGN UP";
+"com.auth0.lock.submit.signup.title" = "Sign Up";
 // Passwordless code reminder action
 "com.auth0.passwordless.code.reminder" = "Did not get the code?";
 // Passwordless code sent by email to %@{identifier}

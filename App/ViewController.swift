@@ -100,7 +100,7 @@ class ViewController: UIViewController {
             },
             actionButton(withTitle: "LOGIN WITH DB") {
                 return Lock
-                    .passwordless()
+                    .classic()
                     .withOptions {
                         applyDefaultOptions(&$0)
                         $0.customSignupFields = [
@@ -111,6 +111,10 @@ class ViewController: UIViewController {
                     .withConnections { connections in
                         let usernameValidator = UsernameValidator(withLength: 1...20, characterSet: UsernameValidator.auth0)
                         connections.database(name: "Username-Password-Authentication", requiresUsername: true, usernameValidator: usernameValidator, passwordPolicy: .excellent)
+                }
+                    .withStyle { style in
+                        style.hideTitle = true
+
                 }
             },
             actionButton(withTitle: "LOGIN ONLY WITH DB") {

@@ -360,7 +360,6 @@ class InputField: UIView, Stylable {
 extension InputField: UITextFieldDelegate {
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.iconView?.tintColor = UIColor.Auth0.active
         self.onBeginEditing(self)
     }
 

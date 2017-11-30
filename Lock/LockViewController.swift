@@ -142,46 +142,17 @@ public class LockViewController: UIViewController {
     }
 
     // MARK: - Keyboard
-
     @objc func keyboardWasShown(_ notification: Notification) {
-        guard
-            let value = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue,
-            let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber,
-            let curveValue = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
-            else { return }
-        let frame = value.cgRectValue
-        let insets = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
-
+        if let keyboardSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect {
+            let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+            self.scrollView.contentInset = contentInsets
+        }
         self.keyboard = true
-        self.scrollView.contentInset = insets
-        let options = UIViewAnimationOptions(rawValue: UInt(curveValue.intValue << 16))
-        UIView.animate(
-            withDuration: duration.doubleValue,
-            delay: 0,
-            options: options,
-            animations: {
-                self.anchorConstraint?.isActive = false
-        },
-            completion: nil)
     }
 
     @objc func keyboardWasHidden(_ notification: Notification) {
-        guard
-            let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber,
-            let curveValue = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
-            else { return }
         self.scrollView.contentInset = UIEdgeInsets.zero
-
         self.keyboard = false
-        let options = UIViewAnimationOptions(rawValue: UInt(curveValue.intValue << 16))
-        UIView.animate(
-            withDuration: duration.doubleValue,
-            delay: 0,
-            options: options,
-            animations: {
-                self.traitCollectionDidChange(nil)
-        },
-            completion: nil)
     }
 
 }
