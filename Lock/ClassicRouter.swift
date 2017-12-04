@@ -49,10 +49,9 @@ struct ClassicRouter: Router {
         // Database root
         case (.some(let database), let oauth2, let enterprise):
             guard self.lock.options.allow != [.ResetPassword] && self.lock.options.initialScreen != .resetPassword else { return forgotPassword }
-            let authentication = self.lock.authentication
-            let interactor = DatabaseInteractor(connection: database, authentication: authentication, user: self.user, options: self.lock.options, dispatcher: lock.observerStore)
+            guard self.lock.options.allow != [.Signup] && self.lock.options.initialScreen != .signup else { return databaseSignup }
+            let interactor = DatabaseInteractor(connection: database, authentication: self.lock.authentication, user: self.user, options: self.lock.options, dispatcher: lock.observerStore)
             self.lock.options.passwordManager.controller = self.controller
-            // TODO: Choose Presenter / Discuss
             let presenter = DatabaseLoginPresenter(interactor: interactor, connection: database, navigator: self, options: self.lock.options)
             if !oauth2.isEmpty {
                 let interactor = Auth0OAuth2Interactor(authentication: self.lock.authentication, dispatcher: lock.observerStore, options: self.lock.options, nativeHandlers: self.lock.nativeHandlers)
@@ -94,6 +93,22 @@ struct ClassicRouter: Router {
         }
     }
 
+    var databaseSignup: Presentable? {
+        let connections = self.lock.connections
+        guard let database = connections.database else {
+            exit(withError: UnrecoverableError.clientWithNoConnections)
+            return nil
+        }
+        let interactor = DatabaseInteractor(connection: database, authentication: self.lock.authentication, user: self.user, options: self.lock.options, dispatcher: lock.observerStore)
+        self.lock.options.passwordManager.controller = self.controller
+        let presenter = DatabaseSignupPresenter(interactor: interactor, connection: database, navigator: self, options: self.lock.options)
+        if !connections.oauth2.isEmpty {
+            let interactor = Auth0OAuth2Interactor(authentication: self.lock.authentication, dispatcher: lock.observerStore, options: self.lock.options, nativeHandlers: self.lock.nativeHandlers)
+            presenter.authPresenter = AuthPresenter(connections: connections.oauth2, interactor: interactor, customStyle: self.lock.style.oauth2)
+        }
+        return presenter
+    }
+
     var forgotPassword: Presentable? {
         let connections = self.lock.connections
         guard !connections.isEmpty else {
@@ -102,7 +117,6 @@ struct ClassicRouter: Router {
         }
         let interactor = DatabasePasswordInteractor(connections: connections, authentication: self.lock.authentication, user: self.user, dispatcher: lock.observerStore)
         let presenter =  DatabaseForgotPasswordPresenter(interactor: interactor, connections: connections, navigator: self, options: self.lock.options)
-        presenter.customLogger = self.lock.logger
         return presenter
     }
 
@@ -115,7 +129,6 @@ struct ClassicRouter: Router {
         let authentication = self.lock.authentication
         let interactor = MultifactorInteractor(user: self.user, authentication: authentication, connection: database, options: self.lock.options, dispatcher: lock.observerStore)
         let presenter = MultifactorPresenter(interactor: interactor, connection: database, navigator: self)
-        presenter.customLogger = self.lock.logger
         return presenter
     }
 
@@ -123,7 +136,6 @@ struct ClassicRouter: Router {
         let authentication = self.lock.authentication
         let interactor = EnterpriseActiveAuthInteractor(connection: connection, authentication: authentication, user: self.user, options: self.lock.options, dispatcher: lock.observerStore)
         let presenter = EnterpriseActiveAuthPresenter(interactor: interactor, options: self.lock.options, domain: domain)
-        presenter.customLogger = self.lock.logger
         return presenter
     }
 
@@ -150,6 +162,8 @@ struct ClassicRouter: Router {
         switch route {
         case .root where self.controller?.routes.current != .root:
             presentable = self.root
+        case .databaseSignup:
+            presentable = self.databaseSignup
         case .forgotPassword:
             presentable = self.forgotPassword
         case .multifactor:

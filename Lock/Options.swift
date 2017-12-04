@@ -53,4 +53,5 @@ public protocol Options {
     var allowShowPassword: Bool { get }
 
     var connectionResolver: (String) -> String? { get }
+    var connectionOrder: ConnectionType { get }
 }

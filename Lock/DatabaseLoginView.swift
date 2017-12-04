@@ -65,10 +65,11 @@ class DatabaseLoginView: UIView, View {
         container.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    func showLogin(withIdentifierStyle style: DatabaseIdentifierStyle, identifier: String? = nil, authCollectionView: AuthCollectionView? = nil, showPassswordManager: Bool, showPassword: Bool) {
+    func showLogin(withIdentifierStyle style: DatabaseIdentifierStyle, identifier: String? = nil, authCollectionView: AuthCollectionView? = nil, showPassswordManager: Bool, showPassword: Bool, connectionOrder: ConnectionType) {
         let form = CredentialView()
         let loginButton = PrimaryButton()
         let resetButton = SecondaryButton()
+        var views: [UIView?] = []
 
         let type: InputField.InputType
         switch style {
@@ -93,12 +94,21 @@ class DatabaseLoginView: UIView, View {
         self.resetButton = resetButton
         self.identityField = form.identityField
         self.passwordField = form.passwordField
+        self.authCollectionView = authCollectionView
+
+        if connectionOrder == .directory {
+            views += [form, loginButton]
+            if authCollectionView != nil { views += [SeparatorView(), authCollectionView] }
+        } else {
+            if authCollectionView != nil { views += [authCollectionView, SeparatorView()] }
+            views += [form, loginButton]
+        }
 
         if self.allowedModes.contains(.ResetPassword) {
-            layoutInStack([form, loginButton, resetButton], authView: authCollectionView)
-        } else {
-            layoutInStack([form, loginButton], authView: authCollectionView)
+            views.append(resetButton)
         }
+
+        self.layoutInStack(views)
 
         if self.allowedModes.contains(.Signup) {
             self.addSignupFooter()
@@ -115,12 +125,9 @@ class DatabaseLoginView: UIView, View {
         }
     }
 
-    private func layoutInStack(_ views: [UIView], authView: AuthCollectionView?) {
-        views.forEach { self.container?.addArrangedSubview($0) }
-        if let authView = authView {
-            self.authCollectionView = authView
-            self.container?.addArrangedSubview(SeparatorView())
-            self.container?.addArrangedSubview(authView)
+    private func layoutInStack(_ views: [UIView?]) {
+        views.forEach {
+            if let view = $0 { self.container?.addArrangedSubview(view) }
         }
         if let style = self.style {
             self.container?.styleSubViews(style: style)

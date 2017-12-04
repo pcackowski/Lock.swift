@@ -70,7 +70,7 @@ class DatabaseLoginPresenter: Presentable, Loggable {
         self.messagePresenter?.hideCurrent()
         let authCollectionView = self.authPresenter?.newViewToEmbed(withInsets: UIEdgeInsets.zero, isLogin: true)
         let style = self.database.requiresUsername ? self.options.usernameStyle : [.Email]
-        view.showLogin(withIdentifierStyle: style, identifier: identifier, authCollectionView: authCollectionView, showPassswordManager: self.passwordManager.available, showPassword: self.options.allowShowPassword)
+        view.showLogin(withIdentifierStyle: style, identifier: identifier, authCollectionView: authCollectionView, showPassswordManager: self.passwordManager.available, showPassword: self.options.allowShowPassword, connectionOrder: self.options.connectionOrder)
         let form = view.form
         form?.onValueChange = self.handleInput
         let action = { [weak form] (button: PrimaryButton) in
@@ -140,7 +140,7 @@ class DatabaseLoginPresenter: Presentable, Loggable {
         }
 
         view.signupButton?.onPress = { _ in
-            // TODO: Navigate to Sign Up
+            self.navigator.navigate(.databaseSignup)
         }
     }
 
@@ -150,7 +150,7 @@ class DatabaseLoginPresenter: Presentable, Loggable {
         self.logger.verbose("new value: \(input.text.verbatim()) for type: \(input.type)")
         var updateHRD: Bool = false
 
-        // FIXME: enum mapping outlived its usefulness
+        // TODO: enum mapping outlived its usefulness
         let attribute: UserAttribute
         switch input.type {
         case .email:

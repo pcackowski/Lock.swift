@@ -25,7 +25,6 @@ import Foundation
 class EnterpriseActiveAuthPresenter: Presentable, Loggable {
 
     var interactor: EnterpriseActiveAuthInteractor
-    var customLogger: Logger?
     let options: Options
     let domain: String?
 

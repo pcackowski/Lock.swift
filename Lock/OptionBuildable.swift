@@ -99,6 +99,9 @@ public protocol OptionBuildable: Options {
 
         /// Extensibility point to make it possible to choose which database connection should be used during login and sign up. By default will return nil. e.g. Use default connection.
     var connectionResolver: (String) -> String? { get set }
+
+        /// Order of display when both database and federated connections are available
+    var connectionOrder: ConnectionType { get set }
 }
 
 extension OptionBuildable {

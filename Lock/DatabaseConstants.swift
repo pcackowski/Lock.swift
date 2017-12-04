@@ -50,3 +50,8 @@ public struct DatabaseIdentifierStyle: OptionSet {
 public func == (lhs: DatabaseScreen, rhs: DatabaseScreen) -> Bool {
     return lhs.rawValue == rhs.rawValue
 }
+
+public enum ConnectionType: Int, Equatable {
+    case directory = 0
+    case federated
+}

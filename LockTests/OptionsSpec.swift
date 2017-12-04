@@ -120,6 +120,10 @@ class OptionsSpec: QuickSpec {
             it("should expect connectionResolver to return nil") {
                 expect(options.connectionResolver("name")).to(beNil())
             }
+
+            it("should expect connectionOrder to return federated") {
+                expect(options.connectionOrder.rawValue) == ConnectionType.federated.rawValue
+            }
         }
 
         describe("validation") {

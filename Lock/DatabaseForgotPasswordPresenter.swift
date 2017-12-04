@@ -26,7 +26,6 @@ class DatabaseForgotPasswordPresenter: Presentable, Loggable {
 
     var interactor: PasswordRecoverable
     let database: DatabaseConnection
-    var customLogger: Logger?
     var navigator: Navigable
     let options: Options
 

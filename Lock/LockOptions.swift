@@ -52,4 +52,5 @@ struct LockOptions: OptionBuildable {
     var allowShowPassword: Bool = true
 
     var connectionResolver: (String) -> String? = { _ in return nil }
+    var connectionOrder: ConnectionType = .federated
 }

@@ -26,7 +26,6 @@ class MultifactorPresenter: Presentable, Loggable {
 
     var interactor: MultifactorAuthenticatable
     let database: DatabaseConnection
-    var customLogger: Logger?
     var navigator: Navigable
 
     init(interactor: MultifactorAuthenticatable, connection: DatabaseConnection, navigator: Navigable) {

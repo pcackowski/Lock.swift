@@ -63,10 +63,11 @@ class DatabaseSignupView: UIView, View {
     }
 
     // swiftlint:disable:next function_parameter_count
-    func showSignUp(withUsername showUsername: Bool, username: String?, email: String?, authCollectionView: AuthCollectionView? = nil, additionalFields: [CustomTextField], passwordPolicyValidator: PasswordPolicyValidator? = nil, showPassswordManager: Bool, showPassword: Bool) {
+    func showSignUp(withUsername showUsername: Bool, username: String?, email: String?, authCollectionView: AuthCollectionView? = nil, additionalFields: [CustomTextField], passwordPolicyValidator: PasswordPolicyValidator? = nil, showPassswordManager: Bool, showPassword: Bool, connectionOrder: ConnectionType) {
         let form = SignUpView(additionalFields: additionalFields)
         let signupButton = PrimaryButton()
         let termsButton = SecondaryButton()
+        var views: [UIView?] = []
 
         self.form = form
         self.identityField = showUsername ? form.usernameField : form.emailField
@@ -83,7 +84,16 @@ class DatabaseSignupView: UIView, View {
         self.allFields = form.stackView.arrangedSubviews.map { $0 as? InputField }.filter { $0 != nil }.map { $0! }
 
         signupButton.title = "SIGN UP".i18n(key: "com.auth0.lock.submit.signup.title", comment: "Signup Button title")
-        layoutInStack([form, signupButton, termsButton], authView: authCollectionView)
+
+        if connectionOrder == .directory {
+            views += [form, signupButton]
+            if authCollectionView != nil { views += [SeparatorView(), authCollectionView] }
+        } else {
+            if authCollectionView != nil { views += [authCollectionView, SeparatorView()] }
+            views += [form, signupButton]
+        }
+        views += [termsButton]
+        self.layoutInStack(views)
 
         if let passwordPolicyValidator = passwordPolicyValidator {
             let passwordPolicyView = PolicyView(rules: passwordPolicyValidator.policy.rules)
@@ -117,11 +127,9 @@ class DatabaseSignupView: UIView, View {
         }
     }
 
-    private func layoutInStack(_ views: [UIView], authView: UIView?) {
-        views.forEach { self.container?.addArrangedSubview($0) }
-        if let authView = authView {
-            self.container?.addArrangedSubview(SeparatorView())
-            self.container?.addArrangedSubview(authView)
+    private func layoutInStack(_ views: [UIView?]) {
+        views.forEach {
+            if let view = $0 { self.container?.addArrangedSubview(view) }
         }
         if let style = self.style {
             self.container?.styleSubViews(style: style)

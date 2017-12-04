@@ -46,6 +46,7 @@ struct Routes {
 
 enum Route: Equatable {
     case root
+    case databaseSignup
     case forgotPassword
     case multifactor
     case enterpriseActiveAuth(connection: EnterpriseConnection, domain: String)
@@ -58,7 +59,7 @@ enum Route: Equatable {
             return "Reset Password".i18n(key: "com.auth0.lock.forgot.title", comment: "Forgot Password title")
         case .multifactor:
             return "Two Step Verification".i18n(key: "com.auth0.lock.multifactor.title", comment: "Multifactor title")
-        case .root, .unrecoverableError, .enterpriseActiveAuth, .passwordless:
+        default:
             return style.hideTitle ? nil : style.title
         }
     }
@@ -66,7 +67,7 @@ enum Route: Equatable {
 
 func == (lhs: Route, rhs: Route) -> Bool {
     switch((lhs, rhs)) {
-    case (.root, .root), (.forgotPassword, .forgotPassword), (.multifactor, .multifactor):
+    case (.root, .root), (.forgotPassword, .forgotPassword), (.multifactor, .multifactor), (.databaseSignup, .databaseSignup):
         return true
     case (.enterpriseActiveAuth(let lhsConnection, let lhsDomain), .enterpriseActiveAuth(let rhsConnection, let rhsDomain)):
         return lhsConnection.name == rhsConnection.name && lhsDomain == rhsDomain
