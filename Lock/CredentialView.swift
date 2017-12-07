@@ -84,7 +84,7 @@ class CredentialView: UIView, Form {
         identifier.translatesAutoresizingMaskIntoConstraints = false
 
         constraintEqual(anchor: password.leftAnchor, toAnchor: self.leftAnchor, constant: 0)
-        constraintEqual(anchor: password.topAnchor, toAnchor: identifier.bottomAnchor, constant: Guide.inputFieldSpacing)
+        constraintEqual(anchor: password.topAnchor, toAnchor: identifier.bottomAnchor, constant: Design.guide.fieldSpacing)
         constraintEqual(anchor: password.rightAnchor, toAnchor: self.rightAnchor, constant: 0)
         constraintEqual(anchor: password.bottomAnchor, toAnchor: self.bottomAnchor)
         password.translatesAutoresizingMaskIntoConstraints = false

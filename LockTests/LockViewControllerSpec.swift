@@ -66,6 +66,7 @@ class LockViewControllerSpec: QuickSpec {
                     curve = UIViewAnimationOptions()
                 }
 
+// TODO: Review 
 //                it("should ignore invalid notification") {
 //                    let notification = Notification(name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 //                    controller.keyboardWasShown(notification)
@@ -78,7 +79,7 @@ class LockViewControllerSpec: QuickSpec {
                     expect(controller.keyboard) == true
                 }
 
-                // TODO: Replace
+
 //                it("should add insets to scroll") {
 //                    let notification = willShowNotification(frame: frame, duration: duration, curve: curve)
 //                    controller.keyboardWasShown(notification)

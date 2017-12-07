@@ -39,14 +39,14 @@ class AuthCollectionViewSpec: QuickSpec {
 
                 it("should just use the button size if there is only one button") {
                     let view = AuthCollectionView(connections: [SocialConnection(name: "social", style: .Facebook)], mode: .expanded(isLogin: true), insets: UIEdgeInsets.zero, customStyle: [:]) { _ in }
-                    expect(view.height) == Guide.inputHeight
+                    expect(view.height) == Design.guide.fieldHeight
                 }
 
                 it("should add padding") {
                     let max = Int(arc4random_uniform(15)) + 2
                     let connections = mockConnections(count: max)
                     let view = AuthCollectionView(connections: connections, mode: .expanded(isLogin: true), insets: UIEdgeInsets.zero, customStyle: [:]) { _ in }
-                    let expected: CGFloat = (CGFloat(max) * Guide.inputHeight) + (CGFloat(max) * 8.0) - 8.0
+                    let expected: CGFloat = (CGFloat(max) * Design.guide.fieldHeight) + (CGFloat(max) * 8.0) - 8.0
                     expect(view.height) == expected
                 }
             }
@@ -64,13 +64,13 @@ class AuthCollectionViewSpec: QuickSpec {
 
                 it("should just use the button size if there is only one button") {
                     let view = AuthCollectionView(connections: [SocialConnection(name: "social", style: .Facebook)], mode: .compact, insets: UIEdgeInsets.zero, customStyle: [:]) { _ in }
-                    expect(view.height) == Guide.inputHeight
+                    expect(view.height) == Design.guide.fieldHeight
                 }
 
                 it("should just use the button size for less than 6 buttons") {
                     let connections: [OAuth2Connection] = mockConnections(count: 5)
                     let view = AuthCollectionView(connections: connections, mode: .compact, insets: UIEdgeInsets.zero, customStyle: [:]) { _ in }
-                    expect(view.height) == Guide.inputHeight
+                    expect(view.height) == Design.guide.fieldHeight
                 }
 
                 it("should add padding per row") {
@@ -78,7 +78,7 @@ class AuthCollectionViewSpec: QuickSpec {
                     let rows = Int(ceil(Double(count) / 5))
                     let connections = mockConnections(count: count)
                     let view = AuthCollectionView(connections: connections, mode: .compact, insets: UIEdgeInsets.zero, customStyle: [:]) { _ in }
-                    let expected: CGFloat = (CGFloat(rows) * Guide.inputHeight) + (CGFloat(rows) * 8.0) - 8.0
+                    let expected: CGFloat = (CGFloat(rows) * Design.guide.fieldHeight) + (CGFloat(rows) * 8.0) - 8.0
                     expect(view.height) == expected
                 }
             }

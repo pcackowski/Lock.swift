@@ -40,7 +40,7 @@ class SeparatorView: UIView {
 
     private func layout() {
         let label = UILabel()
-        label.font = mediumSystemFont(size: Guide.inputFontSize)
+        label.font = mediumSystemFont(size: Design.guide.generalFontSize)
         label.textColor = UIColor.Auth0.steel
         label.text = "OR".i18n(key: "com.auth0.lock.database.separator", comment: "Form separator")
 
@@ -54,12 +54,12 @@ class SeparatorView: UIView {
         self.addSubview(lineRight)
 
         constraintEqual(anchor: lineLeft.leftAnchor, toAnchor: self.leftAnchor)
-        constraintEqual(anchor: lineLeft.rightAnchor, toAnchor: label.leftAnchor, constant: -Guide.inputHeight * 0.5)
+        constraintEqual(anchor: lineLeft.rightAnchor, toAnchor: label.leftAnchor, constant: -Design.guide.fieldHeight * 0.5)
         constraintEqual(anchor: lineLeft.centerYAnchor, toAnchor: self.centerYAnchor)
         dimension(dimension: lineLeft.heightAnchor, withValue: 1)
         lineLeft.translatesAutoresizingMaskIntoConstraints = false
 
-        constraintEqual(anchor: lineRight.leftAnchor, toAnchor: label.rightAnchor, constant: Guide.inputHeight * 0.5)
+        constraintEqual(anchor: lineRight.leftAnchor, toAnchor: label.rightAnchor, constant: Design.guide.fieldHeight * 0.5)
         constraintEqual(anchor: lineRight.rightAnchor, toAnchor: self.rightAnchor)
         constraintEqual(anchor: lineRight.centerYAnchor, toAnchor: self.centerYAnchor)
         dimension(dimension: lineRight.heightAnchor, withValue: 1)
@@ -71,6 +71,6 @@ class SeparatorView: UIView {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: Guide.inputFieldSpacing * 2.0)
+        return CGSize(width: UIViewNoIntrinsicMetric, height: Design.guide.fieldSpacing * 2.0)
     }
 }

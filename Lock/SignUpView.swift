@@ -115,7 +115,7 @@ class SignUpView: UIView, Form {
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         stackView.axis = .vertical
-        stackView.spacing = Guide.inputFieldSpacing
+        stackView.spacing = Design.guide.fieldSpacing
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
 

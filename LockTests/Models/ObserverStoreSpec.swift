@@ -86,9 +86,8 @@ class ObserverStoreSpec: QuickSpec {
                 expect(newEmail).toEventually(equal(email))
             }
 
-
             // TODO: Check why it fails only in travis
-            pending("controller displayed") {
+            describe("controller displayed") {
 
                 var controller: MockLockController!
                 var presenter: MockViewController!

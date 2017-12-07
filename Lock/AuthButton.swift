@@ -134,7 +134,7 @@ public class AuthButton: UIView {
         if case .small = size {
             constraintEqual(anchor: button.widthAnchor, toAnchor: button.heightAnchor)
         }
-        dimension(dimension: button.heightAnchor, greaterThanOrEqual: Guide.inputHeight)
+        dimension(dimension: button.heightAnchor, greaterThanOrEqual: Design.guide.fieldHeight)
         button.translatesAutoresizingMaskIntoConstraints = false
 
         button.layer.cornerRadius = 3
@@ -147,7 +147,7 @@ public class AuthButton: UIView {
         button.setBackgroundImage(image(withColor: self.color), for: UIControlState())
         button.setBackgroundImage(image(withColor: self.color.a0_darker(0.3)), for: .highlighted)
         button.setTitleColor(self.titleColor, for: UIControlState())
-        button.titleLabel?.font = mediumSystemFont(size: Guide.inputFontSize)
+        button.titleLabel?.font = mediumSystemFont(size: Design.guide.generalFontSize)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.titleLabel?.minimumScaleFactor = 0.5
         button.contentVerticalAlignment = .center
@@ -164,15 +164,15 @@ public class AuthButton: UIView {
 
     public override func updateConstraints() {
         super.updateConstraints()
-        self.button?.titleEdgeInsets = UIEdgeInsets(top: 0, left: max(self.frame.size.height, Guide.inputHeight) + 16, bottom: 0, right: 16)
+        self.button?.titleEdgeInsets = UIEdgeInsets(top: 0, left: max(self.frame.size.height, Design.guide.fieldHeight) + 16, bottom: 0, right: 16)
     }
 
     public override var intrinsicContentSize: CGSize {
         switch self.size {
         case .big:
-            return CGSize(width: UIViewNoIntrinsicMetric, height: Guide.inputHeight)
+            return CGSize(width: UIViewNoIntrinsicMetric, height: Design.guide.fieldHeight)
         case .small:
-            return CGSize(width: Guide.inputHeight, height: Guide.inputHeight)
+            return CGSize(width: Design.guide.fieldHeight, height: Design.guide.fieldHeight)
         }
     }
 

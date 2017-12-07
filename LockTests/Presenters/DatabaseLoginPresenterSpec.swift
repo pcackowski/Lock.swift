@@ -126,7 +126,7 @@ class DatabaseLoginPresenterSpec: QuickSpec {
                 expect(view.form as? CredentialView).toNot(beNil())
             }
 
-// TODO: Move
+// TODO: Move to Router
 //            it("should show signup if login is not allowed") {
 //                var options = LockOptions()
 //                options.allow = [.Signup]
@@ -159,11 +159,7 @@ class DatabaseLoginPresenterSpec: QuickSpec {
             it("should set title for secondary button") {
                 expect(view.resetButton?.title) == "Forgot Password?".i18n(key: "com.auth0.lock.database.button.forgot_password", comment: "Forgot password")
             }
-            
-// TODO: What?
-//            it("should reset scroll") {
-//                expect(navigator.resetted) == true
-//            }
+
 
             it("should set button title") {
                 expect(view.loginButton?.title) == "LOG IN"
@@ -428,7 +424,7 @@ class DatabaseLoginPresenterSpec: QuickSpec {
                 expect(interactor.username).to(beNil())
             }
 
-// TODO: Add Support
+// TODO: Restore (Once SSO Added)
 //            context("enterprise mode") {
 //
 //                beforeEach {

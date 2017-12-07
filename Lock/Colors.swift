@@ -55,3 +55,48 @@ extension UIColor {
         }
     }
 }
+
+struct Design {
+
+    static var guide: DesignGuide {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+                //            case 1136:
+                //                self.size = .compact
+                //            case 1334:
+                //                self.size = .regular
+                //            case 2208:
+                //                self.size = .plus
+                //            case 2436:
+            //                self.size = .tall
+            default:
+                 return Design.Regular()
+            }
+        }
+        return Design.Regular()
+    }
+
+    private struct Regular: DesignGuide {
+        let generalFontSize: CGFloat = 14.0
+        let headerFontSize: CGFloat = 16.0
+        let fieldSpacing: CGFloat = 8.0
+        let stackSpacing: CGFloat = 16.0
+        let topMargin: CGFloat = 64.0
+        let sideMargin: CGFloat = 64.0
+        let bottomMargin: CGFloat = 40.0
+        let fieldHeight: CGFloat = 48
+        let oAuthMaxButtons: Int = 2
+    }
+}
+
+protocol DesignGuide {
+    var generalFontSize: CGFloat { get }
+    var headerFontSize: CGFloat { get }
+    var fieldSpacing: CGFloat { get }
+    var stackSpacing: CGFloat { get }
+    var topMargin: CGFloat { get }
+    var sideMargin: CGFloat { get }
+    var bottomMargin: CGFloat { get }
+    var fieldHeight: CGFloat { get }
+    var oAuthMaxButtons: Int { get }
+}

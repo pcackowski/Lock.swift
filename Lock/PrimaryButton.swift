@@ -92,7 +92,7 @@ class PrimaryButton: UIView, Stylable {
         button.addTarget(self, action: #selector(pressed), for: .touchUpInside)
 
         indicator.hidesWhenStopped = true
-        button.titleLabel?.font = mediumSystemFont(size: Guide.inputFontSize)
+        button.titleLabel?.font = mediumSystemFont(size: Design.guide.generalFontSize)
         button.layer.cornerRadius = 3
         button.layer.masksToBounds = true
 
@@ -107,7 +107,7 @@ class PrimaryButton: UIView, Stylable {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: Guide.inputHeight)
+        return CGSize(width: UIViewNoIntrinsicMetric, height: Design.guide.fieldHeight)
     }
 
     @objc func pressed(_ sender: Any) {

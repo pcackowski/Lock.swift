@@ -94,12 +94,12 @@ class PasswordlessRouterSpec: QuickSpec {
             }
 
             describe("classic") {
-                // TODO: Replace
-//                it("should not return root for single database connection") {
-//                    _ = lock.withConnections { $0.database(name: connection, requiresUsername: true) }
-//                    let root = router.root as? DatabasePresenter
-//                    expect(root).to(beNil())
-//                }
+
+                it("should not return root for single database connection") {
+                    _ = lock.withConnections { $0.database(name: connection, requiresUsername: true) }
+                    let root = router.root as? DatabaseLoginPresenter
+                    expect(root).to(beNil())
+                }
 
                 it("should not return root for only enterprise connections") {
                     _ = lock.withConnections {

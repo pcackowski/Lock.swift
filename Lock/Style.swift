@@ -161,16 +161,6 @@ public struct Style {
     static let Auth0 = Style()
 }
 
-struct Guide {
-
-    static let inputFontSize: CGFloat = 14.0
-    static let headerFontSize: CGFloat = 18.0
-    static let inputFieldSpacing: CGFloat = 8.0
-    static let gutter: CGFloat = 64.0
-    static let gutterFooter: CGFloat = 40.0
-    static let inputHeight: CGFloat = 48
-}
-
 protocol Stylable {
     func apply(style: Style)
 }

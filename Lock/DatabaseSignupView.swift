@@ -54,11 +54,11 @@ class DatabaseSignupView: UIView, View {
         container.alignment = .fill
         container.axis = .vertical
         container.distribution = .equalSpacing
-        container.spacing = Guide.inputFieldSpacing * 2.0
+        container.spacing = Design.guide.stackSpacing
 
-        constraintEqual(anchor: container.leftAnchor, toAnchor: self.leftAnchor, constant: Guide.gutter)
+        constraintEqual(anchor: container.leftAnchor, toAnchor: self.leftAnchor, constant: Design.guide.sideMargin)
         constraintEqual(anchor: container.topAnchor, toAnchor: self.topAnchor)
-        constraintEqual(anchor: container.rightAnchor, toAnchor: self.rightAnchor, constant: -Guide.gutter)
+        constraintEqual(anchor: container.rightAnchor, toAnchor: self.rightAnchor, constant: -Design.guide.sideMargin)
         container.translatesAutoresizingMaskIntoConstraints = false
     }
 

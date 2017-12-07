@@ -57,11 +57,11 @@ class DatabaseLoginView: UIView, View {
         container.alignment = .fill
         container.axis = .vertical
         container.distribution = .equalSpacing
-        container.spacing = Guide.inputFieldSpacing * 2.0
+        container.spacing = Design.guide.stackSpacing
 
-        constraintEqual(anchor: container.leftAnchor, toAnchor: self.leftAnchor, constant: Guide.gutter)
+        constraintEqual(anchor: container.leftAnchor, toAnchor: self.leftAnchor, constant: Design.guide.sideMargin)
         constraintEqual(anchor: container.topAnchor, toAnchor: self.topAnchor)
-        constraintEqual(anchor: container.rightAnchor, toAnchor: self.rightAnchor, constant: -Guide.gutter)
+        constraintEqual(anchor: container.rightAnchor, toAnchor: self.rightAnchor, constant: -Design.guide.sideMargin)
         container.translatesAutoresizingMaskIntoConstraints = false
     }
 
@@ -146,16 +146,16 @@ class DatabaseLoginView: UIView, View {
         signupButton.title = "Sign Up".i18n(key: "com.auth0.lock.submit.signup.title", comment: "Signup Button title")
         message.text = "Don't have an account?".i18n(key: "com.auth0.lock.database.message.signup", comment: "Signup message")
         message.textColor = UIColor.Auth0.night
-        message.font = mediumSystemFont(size: Guide.inputFontSize)
+        message.font = mediumSystemFont(size: Design.guide.generalFontSize)
 
-        // TODO: Tidy up
-        let spacer = ((signupButton.button?.intrinsicContentSize.width)! * 0.5)
-        constraintEqual(anchor: signupButton.bottomAnchor, toAnchor: self.bottomAnchor, constant: -Guide.gutterFooter)
-        constraintEqual(anchor: signupButton.leftAnchor, toAnchor: message.rightAnchor, constant: Guide.inputFieldSpacing)
-        dimension(dimension: signupButton.widthAnchor, withValue: (signupButton.button?.intrinsicContentSize.width)!)
+        guard let button = signupButton.button else { return }
+        let spacer = button.intrinsicContentSize.width
+        constraintEqual(anchor: signupButton.bottomAnchor, toAnchor: self.bottomAnchor, constant: -Design.guide.bottomMargin)
+        constraintEqual(anchor: signupButton.leftAnchor, toAnchor: message.rightAnchor, constant: Design.guide.fieldSpacing)
+        dimension(dimension: signupButton.widthAnchor, withValue: spacer)
         signupButton.translatesAutoresizingMaskIntoConstraints = false
 
-        constraintEqual(anchor: message.centerXAnchor, toAnchor: self.centerXAnchor, constant: -spacer)
+        constraintEqual(anchor: message.centerXAnchor, toAnchor: self.centerXAnchor, constant: -spacer * 0.5)
         constraintEqual(anchor: message.centerYAnchor, toAnchor: signupButton.centerYAnchor)
         message.translatesAutoresizingMaskIntoConstraints = false
     }

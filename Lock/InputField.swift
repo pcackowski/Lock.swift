@@ -177,7 +177,7 @@ class InputField: UIView, Stylable {
         iconView.tintColor = Style.Auth0.inputIconColor
         textField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
         textField.delegate = self
-        textField.font = UIFont.systemFont(ofSize: Guide.inputFontSize)
+        textField.font = UIFont.systemFont(ofSize: Design.guide.generalFontSize)
         errorLabel.text = nil
         errorLabel.numberOfLines = 0
 
@@ -346,7 +346,7 @@ class InputField: UIView, Stylable {
         self.textField?.textColor = style.inputTextColor
         self.textField?.attributedPlaceholder = NSAttributedString(string: self.textField?.placeholder ?? "", attributes: [
             NSAttributedStringKey.foregroundColor: style.inputPlaceholderTextColor,
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: Guide.inputFontSize, weight: UIFont.Weight.medium)
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: Design.guide.generalFontSize, weight: UIFont.Weight.medium)
             ])
         self.containerView?.backgroundColor = style.inputBackgroundColor
         self.containerView?.layer.borderColor = style.inputBorderColor.cgColor

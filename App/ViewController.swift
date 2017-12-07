@@ -66,12 +66,27 @@ class ViewController: UIViewController {
                         )
                 }
             },
-            actionButton(withTitle: "LOGIN WITH CDN PASSWORDLESS") {
+            actionButton(withTitle: "LOGIN WITH CDN CLASSIC ORDER") {
                 return Lock
-                    .passwordless()
+                    .classic()
                     .withOptions {
                         applyDefaultOptions(&$0)
+                        $0.passwordManager.appIdentifier = "www.myapp.com"
+                        $0.passwordManager.displayName = "My App"
+                        $0.customSignupFields = [
+                            CustomTextField(name: "first_name", placeholder: "First Name", icon: LazyImage(name: "ic_person", bundle: Lock.bundle)),
+                            CustomTextField(name: "last_name", placeholder: "Last Name", icon: LazyImage(name: "ic_person", bundle: Lock.bundle))
+                        ]
+                        $0.enterpriseConnectionUsingActiveAuth = ["testAD"]
+                        $0.connectionOrder = .directory
                     }
+                    .withStyle {
+                        $0.oauth2["slack"] = AuthStyle(
+                            name: "Slack",
+                            color: UIColor ( red: 0.4118, green: 0.8078, blue: 0.6588, alpha: 1.0 ),
+                            withImage: LazyImage(name: "ic_slack")
+                        )
+                }
             },
             actionButton(withTitle: "LOGIN WITH CDN CUSTOM STYLE") {
                 return Lock

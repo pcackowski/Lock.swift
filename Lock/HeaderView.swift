@@ -111,14 +111,14 @@ public class HeaderView: UIView {
         constraintEqual(anchor: centerGuide.centerXAnchor, toAnchor: self.centerXAnchor)
 
         constraintEqual(anchor: logoView.centerXAnchor, toAnchor: self.centerXAnchor)
-        constraintEqual(anchor: logoView.topAnchor, toAnchor: self.topAnchor, constant: Guide.gutter)
+        constraintEqual(anchor: logoView.topAnchor, toAnchor: self.topAnchor, constant: Design.guide.topMargin)
         dimension(dimension: logoView.heightAnchor, withValue: 80)
         dimension(dimension: logoView.widthAnchor, withValue: 80)
         logoView.translatesAutoresizingMaskIntoConstraints = false
 
         constraintEqual(anchor: titleView.topAnchor, toAnchor: logoView.bottomAnchor, constant: 32)
-        constraintEqual(anchor: titleView.leftAnchor, toAnchor: self.leftAnchor, constant: Guide.gutter)
-        constraintEqual(anchor: titleView.rightAnchor, toAnchor: self.rightAnchor, constant: -Guide.gutter)
+        constraintEqual(anchor: titleView.leftAnchor, toAnchor: self.leftAnchor, constant: Design.guide.sideMargin)
+        constraintEqual(anchor: titleView.rightAnchor, toAnchor: self.rightAnchor, constant: -Design.guide.sideMargin)
         titleView.translatesAutoresizingMaskIntoConstraints = false
 
         constraintEqual(anchor: closeButton.centerYAnchor, toAnchor: self.topAnchor, constant: 48)
@@ -134,7 +134,7 @@ public class HeaderView: UIView {
         backButton.translatesAutoresizingMaskIntoConstraints = false
 
         self.apply(style: Style.Auth0)
-        titleView.font = mediumSystemFont(size: Guide.headerFontSize)
+        titleView.font = mediumSystemFont(size: Design.guide.headerFontSize)
         logoView.image = image(named: "ic_auth0", compatibleWithTraitCollection: self.traitCollection)
         closeButton.setBackgroundImage(image(named: "ic_close", compatibleWithTraitCollection: self.traitCollection)?.withRenderingMode(.alwaysOriginal), for: UIControlState())
         closeButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)

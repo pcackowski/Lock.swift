@@ -108,7 +108,10 @@ class DatabaseSignupPresenter: Presentable, Loggable {
         }
 
         view.form?.onReturn = { [weak view] field in
-            guard let button = view?.signupButton, field.returnKey == .done else { return } // TODO: Log warn
+            guard let button = view?.signupButton, field.returnKey == .done else {
+                self.logger.warn("Button missing")
+                return
+            }
             action(button)
         }
         view.signupButton?.onPress = action
