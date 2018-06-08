@@ -56,6 +56,9 @@ class InputField: UIView, Stylable {
             self.textField?.autocorrectionType = .no
             self.textField?.autocapitalizationType = .none
             self.textField?.keyboardType = type.keyboardType
+            
+
+            
             if let icon = type.icon {
                 self.iconView?.image = icon.image(compatibleWithTraits: self.traitCollection)
             } else if let textField = self.textField, let container = self.containerView {
@@ -149,6 +152,8 @@ class InputField: UIView, Stylable {
         self.errorLabelTopPadding = constraintEqual(anchor: container.bottomAnchor, toAnchor: errorLabel.topAnchor)
         container.translatesAutoresizingMaskIntoConstraints = false
 
+        //dimension(dimension: container.heightAnchor, withValue: 44.0)
+        
         constraintEqual(anchor: errorLabel.leftAnchor, toAnchor: self.leftAnchor)
         constraintEqual(anchor: errorLabel.rightAnchor, toAnchor: self.rightAnchor)
         constraintEqual(anchor: errorLabel.bottomAnchor, toAnchor: self.bottomAnchor)
@@ -166,7 +171,7 @@ class InputField: UIView, Stylable {
         constraintEqual(anchor: textField.topAnchor, toAnchor: container.topAnchor)
         self.textFieldRightPadding = constraintEqual(anchor: textField.rightAnchor, toAnchor: container.rightAnchor, constant: -16)
         constraintEqual(anchor: textField.bottomAnchor, toAnchor: container.bottomAnchor)
-        dimension(dimension: textField.heightAnchor, withValue: 50)
+        dimension(dimension: textField.heightAnchor, withValue: 44)
         textField.translatesAutoresizingMaskIntoConstraints = false
 
         constraintEqual(anchor: iconView.centerXAnchor, toAnchor: iconContainer.centerXAnchor)
@@ -177,9 +182,15 @@ class InputField: UIView, Stylable {
         iconView.tintColor = Style.Auth0.inputIconColor
         textField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
         textField.delegate = self
-        textField.font = UIFont.systemFont(ofSize: 17)
+        
+        textField.font = UIFont(name: "Rubik-Regular", size: 15.0)
         errorLabel.text = nil
         errorLabel.numberOfLines = 0
+        
+        var cornerRadius = Float(25.0)
+        if let height = self.textField?.frame.height, height != 0.0 {
+            cornerRadius = Float(height / 2.0)
+        }
 
         self.textField = textField
         self.iconView = iconView
@@ -188,7 +199,7 @@ class InputField: UIView, Stylable {
         self.errorLabel = errorLabel
 
         self.containerView?.backgroundColor = .white
-        self.containerView?.layer.cornerRadius = 3.67
+        self.containerView?.layer.cornerRadius = CGFloat(cornerRadius)
         self.containerView?.layer.masksToBounds = true
         self.containerView?.layer.borderWidth = 1
         self.type = .email
@@ -242,15 +253,6 @@ class InputField: UIView, Stylable {
                 return -10
             default:
                 return 0
-            }
-        }
-
-        var isValid: Bool {
-            switch self {
-            case .valid:
-                return true
-            case .invalid:
-                return false
             }
         }
     }

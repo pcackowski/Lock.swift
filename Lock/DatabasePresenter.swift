@@ -216,7 +216,7 @@ class DatabasePresenter: Presentable, Loggable {
         let checkTermsAndSignup = { [weak view] (button: PrimaryButton) in
             if self.options.mustAcceptTerms {
                 let validForm = view?.allFields?
-                    .filter { !$0.state.isValid }
+                   // .filter { !$0.state.isValid }
                     .isEmpty ?? false
                 if validForm { self.showTermsPrompt(atButton: button) { _ in action(button) } }
             } else {

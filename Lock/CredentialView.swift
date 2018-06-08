@@ -91,5 +91,15 @@ class CredentialView: UIView, Form {
 
         identifier.type = .email
         password.type = .password
+        
+//        self.identityField.containerView?.layer.cornerRadius = CGFloat(cornerRadius)
+//        self.identityField.containerView?.clipsToBounds = true
+//        
+//        self.passwordField.containerView?.layer.cornerRadius = CGFloat(cornerRadius)
+//        self.passwordField.containerView?.clipsToBounds = true
+
+
+        //getMe
+        
     }
 }

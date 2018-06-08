@@ -80,12 +80,15 @@ class PrimaryButton: UIView, Stylable {
         self.addSubview(button)
         self.addSubview(indicator)
 
-        constraintEqual(anchor: button.leftAnchor, toAnchor: self.leftAnchor)
+        constraintEqual(anchor: button.leftAnchor, toAnchor: self.leftAnchor, constant: 15.0)
         constraintEqual(anchor: button.topAnchor, toAnchor: self.topAnchor)
-        constraintEqual(anchor: button.rightAnchor, toAnchor: self.rightAnchor)
-        constraintEqual(anchor: button.bottomAnchor, toAnchor: self.bottomAnchor)
+        constraintEqual(anchor: button.rightAnchor, toAnchor: self.rightAnchor, constant: -15.0)
+        //constraintEqual(anchor: button.bottomAnchor, toAnchor: self.bottomAnchor)
+        dimension(dimension: button.heightAnchor, withValue: 44.0)
         button.translatesAutoresizingMaskIntoConstraints = false
-
+        button.layer.cornerRadius = 44.0
+        button.clipsToBounds = true
+        
         constraintEqual(anchor: indicator.centerXAnchor, toAnchor: self.centerXAnchor)
         constraintEqual(anchor: indicator.centerYAnchor, toAnchor: self.centerYAnchor)
         indicator.translatesAutoresizingMaskIntoConstraints = false
@@ -105,6 +108,8 @@ class PrimaryButton: UIView, Stylable {
         button.setImage(nil, for: .disabled)
         button.setAttributedTitle(nil, for: .normal)
         button.setAttributedTitle(nil, for: .disabled)
+        button.layer.cornerRadius = 22.0
+        button.clipsToBounds = true
         guard let title = title, !self.hideTitle else {
             button.setImage(image(named: "ic_submit", compatibleWithTraitCollection: self.traitCollection), for: UIControlState())
             button.setImage(UIImage(), for: .disabled)

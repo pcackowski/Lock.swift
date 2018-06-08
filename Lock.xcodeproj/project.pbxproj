@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0120F46520CA889A00E20998 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0120F46420CA889A00E20998 /* Auth0.plist */; };
+		0120F46620CA897700E20998 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0120F46420CA889A00E20998 /* Auth0.plist */; };
 		5B011CDE1E13E16500543F12 /* NotificationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B011CDD1E13E16500543F12 /* NotificationStatus.swift */; };
 		5B09717E1DC8F292003AA88F /* EnterpriseActiveAuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B09717D1DC8F292003AA88F /* EnterpriseActiveAuthInteractor.swift */; };
 		5B0971801DC8F5C4003AA88F /* EnterpriseDomainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B09717F1DC8F5C4003AA88F /* EnterpriseDomainPresenter.swift */; };
@@ -236,6 +238,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0120F46420CA889A00E20998 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		5B011CDD1E13E16500543F12 /* NotificationStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationStatus.swift; sourceTree = "<group>"; };
 		5B09717D1DC8F292003AA88F /* EnterpriseActiveAuthInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnterpriseActiveAuthInteractor.swift; path = Lock/EnterpriseActiveAuthInteractor.swift; sourceTree = SOURCE_ROOT; };
 		5B09717F1DC8F5C4003AA88F /* EnterpriseDomainPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnterpriseDomainPresenter.swift; path = Lock/EnterpriseDomainPresenter.swift; sourceTree = SOURCE_ROOT; };
@@ -375,7 +378,6 @@
 		5FA250511D48F08200C544FA /* LockSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LockSpec.swift; sourceTree = "<group>"; };
 		5FB06A3F1E131D0300E62F36 /* BannerMessagePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerMessagePresenter.swift; sourceTree = "<group>"; };
 		5FB06A411E1329FA00E62F36 /* BannerMessagePresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerMessagePresenterSpec.swift; sourceTree = "<group>"; };
-		5FBE5CB31D3D52EE0038536D /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = SOURCE_ROOT; };
 		5FBE5CB71D3D8F030038536D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Lock/User.swift; sourceTree = SOURCE_ROOT; };
 		5FBE5CB91D3E59B90038536D /* MultifactorCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultifactorCodeView.swift; path = Lock/MultifactorCodeView.swift; sourceTree = SOURCE_ROOT; };
 		5FBE5CBD1D3E5C7B0038536D /* MultifactorAuthenticatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultifactorAuthenticatable.swift; path = Lock/MultifactorAuthenticatable.swift; sourceTree = SOURCE_ROOT; };
@@ -760,13 +762,13 @@
 		5FEADCF51D1A7EBC0032D810 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				5FBE5CB31D3D52EE0038536D /* Auth0.plist */,
 				5FEADCF61D1A7EBC0032D810 /* AppDelegate.swift */,
 				5FEADCFD1D1A7EBC0032D810 /* Assets.xcassets */,
 				5FEADD021D1A7EBC0032D810 /* Info.plist */,
 				5FEADCFF1D1A7EBC0032D810 /* LaunchScreen.storyboard */,
 				5FEADCFA1D1A7EBC0032D810 /* Main.storyboard */,
 				5FEADCF81D1A7EBC0032D810 /* ViewController.swift */,
+				0120F46420CA889A00E20998 /* Auth0.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1078,6 +1080,7 @@
 				5FEADD011D1A7EBC0032D810 /* LaunchScreen.storyboard in Resources */,
 				5FEADCFE1D1A7EBC0032D810 /* Assets.xcassets in Resources */,
 				5FEADCFC1D1A7EBC0032D810 /* Main.storyboard in Resources */,
+				0120F46620CA897700E20998 /* Auth0.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1088,6 +1091,7 @@
 				5F99AA7A1D1B031500D27842 /* Lock.xcassets in Resources */,
 				5B8B795B1E8BAE5E00D0C57E /* passwordless_country_codes.plist in Resources */,
 				5FF45EA81E549EA2008224C8 /* Lock.strings in Resources */,
+				0120F46520CA889A00E20998 /* Auth0.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
